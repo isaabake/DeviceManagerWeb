@@ -8,7 +8,7 @@ namespace WCFDeviceManager
     {
         public static void Configure()
         {
-            System.Data.Entity.Database.SetInitializer(new Models.SampleData());
+            System.Data.Entity.Database.DefaultConnectionFactory.CreateConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Isaac\Projects\DeviceManagerWeb\WCFDeviceManager\App_Data\DeviceDatabase.mdf;Integrated Security=True");
 
             CreateAdminUser();
         }
