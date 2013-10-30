@@ -63,46 +63,71 @@
         return deferred.promise();
     };
 
-    var albumModel = {
-        id: "AlbumId",
-        fields: {
-            AlbumId: {
-                //editable: false,
-                type: "number",
-                defaultValue: 0
-            },
-            ArtistId: {
-                type: "number",
-                defaultValue: 1
-            },
-            GenreId: {
-                type: "number",
-                defaultValue: 1
-            },
-            Title: {
-                type: "string",
-                validation: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 160
+    var Devices = {
+        type: "odata",
+        transport: {
+            read: {
+                url: "/Service/DeviceManagerService.svc/Devices",
+                headers: {
+                    DataServiceVersion: "2.0",
+                    MaxDataServiceVersion: "2.0"
                 }
             },
-            Price: {
-                type: "number",
-                defaultValue: 9.99,
-                validation: {
-                    min: 0.01,
-                    max: 200.00
-                }
-            },
-            AlbumArtUrl: {
-                type: "string",
-                validation: {
-                    maxlength: 1024
+            schema: {
+                model: {
+                    id: "ID",
+                    hasChildren: function () {
+                        return false;
+                    }
                 }
             }
         }
     };
+
+    $("#treeview").kendoTreeView({
+        dataSource: Devices
+    });
+
+    //var albumModel = {
+    //    id: "AlbumId",
+    //    fields: {
+    //        AlbumId: {
+    //            //editable: false,
+    //            type: "number",
+    //            defaultValue: 0
+    //        },
+    //        ArtistId: {
+    //            type: "number",
+    //            defaultValue: 1
+    //        },
+    //        GenreId: {
+    //            type: "number",
+    //            defaultValue: 1
+    //        },
+    //        Title: {
+    //            type: "string",
+    //            validation: {
+    //                required: true,
+    //                minlength: 2,
+    //                maxlength: 160
+    //            }
+    //        },
+    //        Price: {
+    //            type: "number",
+    //            defaultValue: 9.99,
+    //            validation: {
+    //                min: 0.01,
+    //                max: 200.00
+    //            }
+    //        },
+    //        AlbumArtUrl: {
+    //            type: "string",
+    //            validation: {
+    //                maxlength: 1024
+    //            }
+    //        }
+    //    }
+    //};
 
     var gridDataSource = new kendo.data.DataSource({
         type: "odata",

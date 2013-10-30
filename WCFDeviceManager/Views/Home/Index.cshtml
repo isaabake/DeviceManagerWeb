@@ -1,6 +1,51 @@
-﻿@section scripts
+﻿@*@section scripts
 {
-    <script src="~/Scripts/gridSample.js"></script>
-}
+    <script src="~/Scripts/deviceTree.js"></script>
+}*@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>        </title>
+        <link href="~/Scripts/styles/kendo.common.min.css" rel="stylesheet" />
+        <link href="~/Scripts/styles/kendo.default.min.css" rel="stylesheet" />
+        <script src="~/Scripts/js/jquery.min.js"></script>
+        <script src="~/Scripts/js/kendo.all.min.js"></script>
+    </head>
 
-<div id="grid"></div>
+    <body>
+        <div id="treeview" />
+
+        <script>
+            $(document).ready(function () {
+                var Devices = {
+                    type: "odata",
+                    transport: {
+                        read: {
+                            url: "/Service/DeviceService.svc/Devices",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        schema: {
+                            model: {
+                                id: "ID",
+                                hasChildren: function () {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                };
+
+                $("#treeview").kendoTreeView({
+                    dataSource: Devices,
+                    dataTextField: "Name"
+                });
+            });
+        </script>
+
+    </body>
+</html>
+
+<div id="tree"></div>

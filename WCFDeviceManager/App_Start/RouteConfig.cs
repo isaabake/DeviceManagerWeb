@@ -8,7 +8,7 @@ namespace WCFDeviceManager
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("Services/{resource}.svc/{*pathInfo}");
+            routes.IgnoreRoute("Service/{resource}.svc/{*pathInfo}");
 
             routes.MapRoute(
                 name: "Default",
