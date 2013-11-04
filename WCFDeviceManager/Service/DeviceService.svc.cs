@@ -11,7 +11,7 @@ namespace WCFDeviceManager.Services
 
         public static void InitializeService(DataServiceConfiguration config)
         {
-            config.SetEntitySetAccessRule("Devices", EntitySetRights.All);
+            config.SetEntitySetAccessRule("*", EntitySetRights.All);
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
         }
 

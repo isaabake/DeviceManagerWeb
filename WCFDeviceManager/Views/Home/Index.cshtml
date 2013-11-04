@@ -4,194 +4,234 @@
 }*@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>        </title>
-        <link href="~/Scripts/styles/kendo.common.min.css" rel="stylesheet" />
-        <link href="~/Scripts/styles/kendo.default.min.css" rel="stylesheet" />
-        <script src="~/Scripts/js/jquery.min.js"></script>
-        <script src="~/Scripts/js/kendo.all.min.js"></script>
-    </head>
+<head>
+    <title></title>
+    <link href="~/Scripts/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Scripts/styles/kendo.default.min.css" rel="stylesheet" />
+    <script src="~/Scripts/js/jquery.min.js"></script>
+    <script src="~/Scripts/js/kendo.all.min.js"></script>
+</head>
 
-    <body>
-         <div id="btnmenu">
-            <button type="button" id="adddevbtn">Add Device</button>
-            <button type="button" id="deldevbtn">Delete Device</button>
-            
-        </div>
-        
-        <div id="tabstrip" style="float: right">
-            <ul>
-                <li class="k-state-active">
-                    Device
-                </li>
-                <li>
-                    Connection
-                </li>
-                <li>
-                    Documents
-                </li>
-            </ul>
-            
-            <div>
-                <label for="dtypetb" class="required" >Device Type</label>
-                <input type="text"  id="dtypetb" class="dev-textbox" style="background-color: lightgray"disabled/>
+<body>
+    <div id="btnmenu">
+        <button type="button" id="adddevbtn">Add Device</button>
+        <button type="button" id="deldevbtn">Delete Device</button>
 
-                <label for="dnametb" class="required">Device Name</label>
-                <input type="text"  id="dnametb" class="dev-textbox" style="background-color: lightgray"disabled/>
+    </div>
 
-                <label for="dserialtb" class="required" >Serial Number</label>
-                <input type="text"  id="dserialtb" class="dev-textbox" style="background-color: lightgray"disabled/>
-                
-                <label for="dgidtb" class="required" >Global Device ID</label>
-                <input type="text"  id="dgidtb" class="dev-textbox" style="background-color: lightgray"disabled/>
-                
-                <label for="firmtb" class="required" >Firmware Version</label>
-                <input type="text"  id="firmtb" class="dev-textbox" style="background-color: lightgray"disabled/>
-                
-                <label for="dpartnumtb" class="required" >Part Number</label>
-                <input type="text"  id="dpartnumtb" class="dev-textbox" style="background-color: lightgray"disabled/>
-                
-                <label for="dfidtb" class="required" >FID String</label>
-                <input type="text"  id="dfidtb" class="dev-textbox" style="background-color: lightgray"disabled/>
-                
-                <label for="desctb" class="required" >Description</label>
-                <input type="text"  id="desctb" class="dev-textbox" style="background-color: lightgray"disabled/>
-                
-                <script>
+    <div id="tabstrip" style="float: right">
+        <ul>
+            <li class="k-state-active">Device
+            </li>
+            <li>Connection
+            </li>
+            <li>Documents
+            </li>
+        </ul>
 
-                    //TODO: need to save old values if cancle is called
-                    function editHand(e) {
-                        //TODO: will need to call the connection ones something different
-                        var inputs = document.getElementsByClassName("dev-textbox");
-                        for (var i = 0; i < inputs.length; i++) {
-                            inputs[i].disabled = false;
-                            inputs[i].style.backgroundColor = "white";
+        <div>
+            <label for="dtypetb" class="required">Device Type</label>
+            <input type="text" id="dtypetb" class="dev-textbox" style="background-color: lightgray" disabled />
 
+            <label for="dnametb" class="required">Device Name</label>
+            <input type="text" id="dnametb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-                        }
+            <label for="dserialtb" class="required">Serial Number</label>
+            <input type="text" id="dserialtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-                    }
+            <label for="dgidtb" class="required">Global Device ID</label>
+            <input type="text" id="dgidtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-                    function cancleHand(e) {
-                        var inputs = document.getElementsByClassName("dev-textbox");
-                        for (var i = 0; i < inputs.length; i++) {
-                            inputs[i].disabled = true;
-                            inputs[i].style.backgroundColor = "lightgray";
+            <label for="firmtb" class="required">Firmware Version</label>
+            <input type="text" id="firmtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-                        }
-                    }
-                </script>
+            <label for="dpartnumtb" class="required">Part Number</label>
+            <input type="text" id="dpartnumtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-                <button type="button" id="editbtn" onclick="editHand()">Edit</button>
-                <button type="button" id="cancelbtn" onclick="cancleHand()">Cancel</button>
-                <button type="button" id="applybtn">Apply</button>
-                
-            </div>
-            
-            
-            
-            <div>
-                
-                <label for="ipaddresstb" class="required" >IP Address</label>
-                <input type="text"  id="ipaddresstb" class="conn-textbox"/>
-        
-                <label for="portnumtb" class="required">Port Number</label>
-                <input type="text"  id="portnumtb" name="name" class="conn-textbox"/>
-                
-                <input list=conntype >
-                <datalist id=conntype >
-                    <option> Serial
-                    <option> Network
-                </datalist>
-                
-            </div>
-            
-            <div>
-                
-            </div>
-        </div>
+            <label for="dfidtb" class="required">FID String</label>
+            <input type="text" id="dfidtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-
-        <div id="treeview" style="float: left">
+            <label for="desctb" class="required">Description</label>
+            <input type="text" id="desctb" class="dev-textbox" style="background-color: lightgray" disabled />
 
             <script>
-                //TODO: eventually set page size if connection tree needs to scroll because it's large
-                $(document).ready(function () {
 
-                    var deviceModel =
-                    {
-                        id: "ID"
-                    };
-
-                    var treeDataSource = {
-                        type: "odata",
-                        transport: {
-                            read: {
-                                url: "/Service/DeviceService.svc/Devices",
-                                headers: {
-                                    DataServiceVersion: "2.0",
-                                    MaxDataServiceVersion: "2.0"
-                                }
-                            },
-                            create:
-                            {
-                                url: "/Service/DeviceService.svc/Devices",
-                                type: "POST",
-                                dataType: "json",
-                                headers: {
-                                    DataServiceVersion: "2.0",
-                                    MaxDataServiceVersion: "2.0"
-                                }
-                            },
-                            schema: {
-                                model: deviceModel,
-                                hasChildren: function () {
-                                    return false;
-                                }
-                            }
-                        }
-
-                    };
-
-
-
-                    function onSelect(e) {
-                        var dataItem = this.dataItem(e.node);
-                        //TODO: is this already loaded or is it being requested? Don't want all that stuff loaded until asked for
-                        document.getElementById("dnametb").value = dataItem.get("Name");
-                        document.getElementById("desctb").value = dataItem.get("Description");
-                        document.getElementById("dtypetb").value = dataItem.get("DeviceTypeID");
-                        document.getElementById("dserialtb").value = dataItem.get("SerialNumber");
-                        document.getElementById("dgidtb").value = dataItem.get("ID");
-                        document.getElementById("firmtb").value = dataItem.get("FirmwareRevision");
-                        document.getElementById("dpartnumtb").value = dataItem.get("PartNumber");
-                        document.getElementById("dfidtb").value = dataItem.get("FIDString");
+                //TODO: need to save old values if cancle is called
+                function editHand(e) {
+                    //TODO: will need to call the connection ones something different
+                    var inputs = document.getElementsByClassName("dev-textbox");
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].disabled = false;
+                        inputs[i].style.backgroundColor = "white";
 
 
                     }
 
+                }
 
+                function cancleHand(e) {
+                    var inputs = document.getElementsByClassName("dev-textbox");
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].disabled = true;
+                        inputs[i].style.backgroundColor = "lightgray";
 
-                    $("#treeview").kendoTreeView({
-                        dataSource: treeDataSource,
-                        dataTextField: "Name",
-                        select: onSelect
-                    });
-
-
-                    $("#tabstrip").kendoTabStrip({
-                        animation: {
-                            open:
-                                { effects: "fadeIn" }
-                        }
-                    });
-
-
-
-                });
+                    }
+                }
             </script>
-        </div>
-        
 
-    </body>
+            <button type="button" id="editbtn" onclick="editHand()">Edit</button>
+            <button type="button" id="cancelbtn" onclick="cancleHand()">Cancel</button>
+            <button type="button" id="applybtn">Apply</button>
+
+        </div>
+
+
+
+        <div>
+
+            <label for="ipaddresstb" class="required">IP Address</label>
+            <input type="text" id="ipaddresstb" class="conn-textbox" />
+
+            <label for="portnumtb" class="required">Port Number</label>
+            <input type="text" id="portnumtb" name="name" class="conn-textbox" />
+
+            <input list="conntype">
+            <datalist id="conntype">
+                <option>
+                Serial
+                    <option>
+                Network
+            </datalist>
+
+        </div>
+
+        <div>
+        </div>
+    </div>
+
+
+    <div id="treeview" style="float: left">
+
+        <script>
+            //TODO: eventually set page size if connection tree needs to scroll because it's large
+            $(document).ready(function () {
+
+                var nodeModel = {
+                    id: "ID",
+                    fields: {
+                        ID: {
+                            //editable: false,
+                            type: "number"
+                        },
+                        Name: {
+                            type: "string"
+                        },
+                        ParentID: {
+                            type: "number"
+                        },
+                        DeviceID: {
+                            type: "number"
+                        },
+                        FolderID: {
+                            type: "number"
+                        }
+                    },
+                    hasChildren: function () {
+                        return false;
+                    },
+                    //children: Nodes
+                };
+
+                var treeDataSource = {
+                    type: "odata",
+                    transport: {
+                        read: {
+                            url: "/Service/DeviceService.svc/Nodes",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        create: {
+                            url: "/Service/DeviceService.svc/Nodes",
+                            type: "POST",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        update: {
+                            url: function (data) {
+                                return "/Service/DeviceService.svc/Nodes(" + data.ID + ")";
+                            },
+                            type: "PUT",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        destroy: {
+                            url: function (data) {
+                                return "/Service/DeviceService.svc/Nodes(" + data.ID + ")";
+                            },
+                            type: "DELETE",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        }
+                    },
+
+                    schema: {
+                        model: nodeModel
+                    }
+                };
+
+                $("#treeview").kendoTreeView({
+                    dataSource: treeDataSource,
+                    dataTextField: "Name"
+                });
+
+
+
+
+                function onSelect(e) {
+                    var dataItem = this.dataItem(e.node);
+                    //TODO: is this already loaded or is it being requested? Don't want all that stuff loaded until asked for
+                    document.getElementById("dnametb").value = dataItem.get("Name");
+                    document.getElementById("desctb").value = dataItem.get("Description");
+                    document.getElementById("dtypetb").value = dataItem.get("DeviceTypeID");
+                    document.getElementById("dserialtb").value = dataItem.get("SerialNumber");
+                    document.getElementById("dgidtb").value = dataItem.get("ID");
+                    document.getElementById("firmtb").value = dataItem.get("FirmwareRevision");
+                    document.getElementById("dpartnumtb").value = dataItem.get("PartNumber");
+                    document.getElementById("dfidtb").value = dataItem.get("FIDString");
+
+
+                }
+
+
+
+                $("#treeview").kendoTreeView({
+                    dataSource: treeDataSource,
+                    dataTextField: "Name",
+                    select: onSelect
+                });
+
+
+                $("#tabstrip").kendoTabStrip({
+                    animation: {
+                        open:
+                            { effects: "fadeIn" }
+                    }
+                });
+
+
+
+            });
+        </script>
+    </div>
+
+
+</body>
 </html>
