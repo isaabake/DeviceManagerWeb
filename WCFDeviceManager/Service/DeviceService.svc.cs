@@ -5,14 +5,17 @@ using WCFDeviceManager.Models;
 
 namespace WCFDeviceManager.Services
 {
-    public class DeviceService : DataService<DeviceDatabaseModelsDataContext>
+    [System.ServiceModel.ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    public class DeviceService : DataService<DeviceDatabaseEntities>
     {
         private const string ADMIN_ROLE = "Administrator";
 
         public static void InitializeService(DataServiceConfiguration config)
         {
             config.SetEntitySetAccessRule("*", EntitySetRights.All);
+            config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
+            config.UseVerboseErrors = true;
         }
 
         /// <summary>

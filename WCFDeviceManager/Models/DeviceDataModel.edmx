@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DeviceDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="DeviceDatabaseModelStoreContainer">
+          <EntitySet Name="Connection" EntityType="DeviceDatabaseModel.Store.Connection" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ConnectionType" EntityType="DeviceDatabaseModel.Store.ConnectionType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Device" EntityType="DeviceDatabaseModel.Store.Device" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DeviceType" EntityType="DeviceDatabaseModel.Store.DeviceType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Document" EntityType="DeviceDatabaseModel.Store.Document" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Folder" EntityType="DeviceDatabaseModel.Store.Folder" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Node" EntityType="DeviceDatabaseModel.Store.Node" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Connection_ID" Association="DeviceDatabaseModel.Store.FK_Connection_ID">
+            <End Role="Connection" EntitySet="Connection" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConnectionType_ID" Association="DeviceDatabaseModel.Store.FK_ConnectionType_ID">
+            <End Role="ConnectionType" EntitySet="ConnectionType" />
+            <End Role="Connection" EntitySet="Connection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceID" Association="DeviceDatabaseModel.Store.FK_DeviceID">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="Node" EntitySet="Node" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceType_ID" Association="DeviceDatabaseModel.Store.FK_DeviceType_ID">
+            <End Role="DeviceType" EntitySet="DeviceType" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FolderID" Association="DeviceDatabaseModel.Store.FK_FolderID">
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="Node" EntitySet="Node" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NodeID" Association="DeviceDatabaseModel.Store.FK_NodeID">
+            <End Role="Node" EntitySet="Node" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParentID" Association="DeviceDatabaseModel.Store.FK_ParentID">
+            <End Role="Node" EntitySet="Node" />
+            <End Role="Node1" EntitySet="Node" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Connection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ConnectionTypeID" Type="int" Nullable="false" />
+          <Property Name="BaudRate" Type="int" />
+          <Property Name="DataBits" Type="int" />
+          <Property Name="StopBits" Type="int" />
+          <Property Name="RTSCTS" Type="int" />
+          <Property Name="DTR" Type="int" />
+          <Property Name="RTS" Type="int" />
+          <Property Name="XonXoff" Type="int" />
+        </EntityType>
+        <EntityType Name="ConnectionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="DeviceTypeID" Type="int" Nullable="false" />
+          <Property Name="ConnectionID" Type="int" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="SerialNumber" Type="char" MaxLength="10" />
+          <Property Name="FirmwareRevision" Type="varchar" MaxLength="50" />
+          <Property Name="PartNumber" Type="varchar" MaxLength="50" />
+          <Property Name="FIDString" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="CanHaveChildren" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Data" Type="varbinary(max)" Nullable="false" />
+          <Property Name="NodeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Node">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="DeviceID" Type="int" />
+          <Property Name="FolderID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Connection_ID">
+          <End Role="Connection" Type="DeviceDatabaseModel.Store.Connection" Multiplicity="0..1" />
+          <End Role="Device" Type="DeviceDatabaseModel.Store.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Connection">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="ConnectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConnectionType_ID">
+          <End Role="ConnectionType" Type="DeviceDatabaseModel.Store.ConnectionType" Multiplicity="1" />
+          <End Role="Connection" Type="DeviceDatabaseModel.Store.Connection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConnectionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Connection">
+              <PropertyRef Name="ConnectionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceID">
+          <End Role="Device" Type="DeviceDatabaseModel.Store.Device" Multiplicity="0..1" />
+          <End Role="Node" Type="DeviceDatabaseModel.Store.Node" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Node">
+              <PropertyRef Name="DeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceType_ID">
+          <End Role="DeviceType" Type="DeviceDatabaseModel.Store.DeviceType" Multiplicity="1" />
+          <End Role="Device" Type="DeviceDatabaseModel.Store.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="DeviceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FolderID">
+          <End Role="Folder" Type="DeviceDatabaseModel.Store.Folder" Multiplicity="0..1" />
+          <End Role="Node" Type="DeviceDatabaseModel.Store.Node" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Node">
+              <PropertyRef Name="FolderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NodeID">
+          <End Role="Node" Type="DeviceDatabaseModel.Store.Node" Multiplicity="1" />
+          <End Role="Document" Type="DeviceDatabaseModel.Store.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Node">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="NodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParentID">
+          <End Role="Node" Type="DeviceDatabaseModel.Store.Node" Multiplicity="0..1" />
+          <End Role="Node1" Type="DeviceDatabaseModel.Store.Node" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Node">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Node1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DeviceDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="DeviceDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Connections" EntityType="DeviceDatabaseModel.Connection" />
+          <EntitySet Name="ConnectionTypes" EntityType="DeviceDatabaseModel.ConnectionType" />
+          <EntitySet Name="Devices" EntityType="DeviceDatabaseModel.Device" />
+          <EntitySet Name="DeviceTypes" EntityType="DeviceDatabaseModel.DeviceType" />
+          <EntitySet Name="Documents" EntityType="DeviceDatabaseModel.Document" />
+          <EntitySet Name="Folders" EntityType="DeviceDatabaseModel.Folder" />
+          <EntitySet Name="Nodes" EntityType="DeviceDatabaseModel.Node" />
+          <AssociationSet Name="FK_Connection_ID" Association="DeviceDatabaseModel.FK_Connection_ID">
+            <End Role="Connection" EntitySet="Connections" />
+            <End Role="Device" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConnectionType_ID" Association="DeviceDatabaseModel.FK_ConnectionType_ID">
+            <End Role="ConnectionType" EntitySet="ConnectionTypes" />
+            <End Role="Connection" EntitySet="Connections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceID" Association="DeviceDatabaseModel.FK_DeviceID">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="Node" EntitySet="Nodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceType_ID" Association="DeviceDatabaseModel.FK_DeviceType_ID">
+            <End Role="DeviceType" EntitySet="DeviceTypes" />
+            <End Role="Device" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NodeID" Association="DeviceDatabaseModel.FK_NodeID">
+            <End Role="Node" EntitySet="Nodes" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FolderID" Association="DeviceDatabaseModel.FK_FolderID">
+            <End Role="Folder" EntitySet="Folders" />
+            <End Role="Node" EntitySet="Nodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParentID" Association="DeviceDatabaseModel.FK_ParentID">
+            <End Role="Node" EntitySet="Nodes" />
+            <End Role="Node1" EntitySet="Nodes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Connection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ConnectionTypeID" Type="Int32" Nullable="false" />
+          <Property Name="BaudRate" Type="Int32" />
+          <Property Name="DataBits" Type="Int32" />
+          <Property Name="StopBits" Type="Int32" />
+          <Property Name="RTSCTS" Type="Int32" />
+          <Property Name="DTR" Type="Int32" />
+          <Property Name="RTS" Type="Int32" />
+          <Property Name="XonXoff" Type="Int32" />
+          <NavigationProperty Name="Devices" Relationship="DeviceDatabaseModel.FK_Connection_ID" FromRole="Connection" ToRole="Device" />
+          <NavigationProperty Name="ConnectionType" Relationship="DeviceDatabaseModel.FK_ConnectionType_ID" FromRole="Connection" ToRole="ConnectionType" />
+        </EntityType>
+        <EntityType Name="ConnectionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Connections" Relationship="DeviceDatabaseModel.FK_ConnectionType_ID" FromRole="ConnectionType" ToRole="Connection" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="DeviceTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ConnectionID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="FirmwareRevision" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PartNumber" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FIDString" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Connection" Relationship="DeviceDatabaseModel.FK_Connection_ID" FromRole="Device" ToRole="Connection" />
+          <NavigationProperty Name="Nodes" Relationship="DeviceDatabaseModel.FK_DeviceID" FromRole="Device" ToRole="Node" />
+          <NavigationProperty Name="DeviceType" Relationship="DeviceDatabaseModel.FK_DeviceType_ID" FromRole="Device" ToRole="DeviceType" />
+        </EntityType>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CanHaveChildren" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Devices" Relationship="DeviceDatabaseModel.FK_DeviceType_ID" FromRole="DeviceType" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Data" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="NodeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Node" Relationship="DeviceDatabaseModel.FK_NodeID" FromRole="Document" ToRole="Node" />
+        </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Nodes" Relationship="DeviceDatabaseModel.FK_FolderID" FromRole="Folder" ToRole="Node" />
+        </EntityType>
+        <EntityType Name="Node">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="DeviceID" Type="Int32" />
+          <Property Name="FolderID" Type="Int32" />
+          <NavigationProperty Name="Device" Relationship="DeviceDatabaseModel.FK_DeviceID" FromRole="Node" ToRole="Device" />
+          <NavigationProperty Name="Documents" Relationship="DeviceDatabaseModel.FK_NodeID" FromRole="Node" ToRole="Document" />
+          <NavigationProperty Name="Folder" Relationship="DeviceDatabaseModel.FK_FolderID" FromRole="Node" ToRole="Folder" />
+          <NavigationProperty Name="Node1" Relationship="DeviceDatabaseModel.FK_ParentID" FromRole="Node" ToRole="Node1" />
+          <NavigationProperty Name="Node2" Relationship="DeviceDatabaseModel.FK_ParentID" FromRole="Node1" ToRole="Node" />
+        </EntityType>
+        <Association Name="FK_Connection_ID">
+          <End Role="Connection" Type="DeviceDatabaseModel.Connection" Multiplicity="0..1" />
+          <End Role="Device" Type="DeviceDatabaseModel.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Connection">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="ConnectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConnectionType_ID">
+          <End Role="ConnectionType" Type="DeviceDatabaseModel.ConnectionType" Multiplicity="1" />
+          <End Role="Connection" Type="DeviceDatabaseModel.Connection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConnectionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Connection">
+              <PropertyRef Name="ConnectionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceID">
+          <End Role="Device" Type="DeviceDatabaseModel.Device" Multiplicity="0..1" />
+          <End Role="Node" Type="DeviceDatabaseModel.Node" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Node">
+              <PropertyRef Name="DeviceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceType_ID">
+          <End Role="DeviceType" Type="DeviceDatabaseModel.DeviceType" Multiplicity="1" />
+          <End Role="Device" Type="DeviceDatabaseModel.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="DeviceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NodeID">
+          <End Role="Node" Type="DeviceDatabaseModel.Node" Multiplicity="1" />
+          <End Role="Document" Type="DeviceDatabaseModel.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Node">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="NodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FolderID">
+          <End Role="Folder" Type="DeviceDatabaseModel.Folder" Multiplicity="0..1" />
+          <End Role="Node" Type="DeviceDatabaseModel.Node" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Node">
+              <PropertyRef Name="FolderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParentID">
+          <End Role="Node" Type="DeviceDatabaseModel.Node" Multiplicity="0..1" />
+          <End Role="Node1" Type="DeviceDatabaseModel.Node" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Node">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Node1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DeviceDatabaseModelStoreContainer" CdmEntityContainer="DeviceDatabaseEntities">
+          <EntitySetMapping Name="Connections">
+            <EntityTypeMapping TypeName="DeviceDatabaseModel.Connection">
+              <MappingFragment StoreEntitySet="Connection">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ConnectionTypeID" ColumnName="ConnectionTypeID" />
+                <ScalarProperty Name="BaudRate" ColumnName="BaudRate" />
+                <ScalarProperty Name="DataBits" ColumnName="DataBits" />
+                <ScalarProperty Name="StopBits" ColumnName="StopBits" />
+                <ScalarProperty Name="RTSCTS" ColumnName="RTSCTS" />
+                <ScalarProperty Name="DTR" ColumnName="DTR" />
+                <ScalarProperty Name="RTS" ColumnName="RTS" />
+                <ScalarProperty Name="XonXoff" ColumnName="XonXoff" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConnectionTypes">
+            <EntityTypeMapping TypeName="DeviceDatabaseModel.ConnectionType">
+              <MappingFragment StoreEntitySet="ConnectionType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Devices">
+            <EntityTypeMapping TypeName="DeviceDatabaseModel.Device">
+              <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DeviceTypeID" ColumnName="DeviceTypeID" />
+                <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="FirmwareRevision" ColumnName="FirmwareRevision" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="FIDString" ColumnName="FIDString" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceTypes">
+            <EntityTypeMapping TypeName="DeviceDatabaseModel.DeviceType">
+              <MappingFragment StoreEntitySet="DeviceType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CanHaveChildren" ColumnName="CanHaveChildren" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="DeviceDatabaseModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="NodeID" ColumnName="NodeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Folders">
+            <EntityTypeMapping TypeName="DeviceDatabaseModel.Folder">
+              <MappingFragment StoreEntitySet="Folder">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nodes">
+            <EntityTypeMapping TypeName="DeviceDatabaseModel.Node">
+              <MappingFragment StoreEntitySet="Node">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="FolderID" ColumnName="FolderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
