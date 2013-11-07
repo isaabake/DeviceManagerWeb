@@ -924,7 +924,7 @@ namespace WCFDeviceManager.Models
 		
 		private int _ID;
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Device Name must be specified!")]
 		[StringLength(128, ErrorMessage = "Device Name cannot exceed 128 characters!")]
         private string _Name;
 		
@@ -1016,6 +1016,7 @@ namespace WCFDeviceManager.Models
 			{
 				if ((this._Name != value))
 				{
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null) { MemberName = "_Name" });
 					this.OnNameChanging(value);
 					this.SendPropertyChanging();
 					this._Name = value;
