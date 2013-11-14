@@ -2,7 +2,7 @@
 <feed xml:base="http://localhost:62392/Service/DeviceService.svc/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
   <id>http://localhost:62392/Service/DeviceService.svc/Nodes</id>
   <title type="text">Nodes</title>
-  <updated>2013-11-07T22:29:30Z</updated>
+  <updated>2013-11-14T22:53:25Z</updated>
   <link rel="self" title="Nodes" href="Nodes" />
   <entry>
     <id>http://localhost:62392/Service/DeviceService.svc/Nodes(0)</id>
@@ -11,37 +11,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(0)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(0)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(0)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(0)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(0)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(0)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(0)/Node1" />
-          <entry>
-            <id>http://localhost:62392/Service/DeviceService.svc/Nodes(1)</id>
-            <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-            <link rel="edit" title="Node" href="Nodes(1)" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(1)/Device" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(1)/Documents" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(1)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(1)/Node1" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(1)/Node2" />
-            <title />
-            <updated>2013-11-07T22:29:30Z</updated>
-            <author>
-              <name />
-            </author>
-            <content type="application/xml">
-              <m:properties>
-                <d:ID m:type="Edm.Int32">1</d:ID>
-                <d:Name>B</d:Name>
-                <d:ParentID m:type="Edm.Int32">0</d:ParentID>
-                <d:DeviceID m:type="Edm.Int32">1</d:DeviceID>
-                <d:FolderID m:type="Edm.Int32" m:null="true" />
-              </m:properties>
-            </content>
-          </entry>
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(0)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(0)/Children" />
           <entry>
             <id>http://localhost:62392/Service/DeviceService.svc/Nodes(2)</id>
             <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
@@ -49,10 +25,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(2)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(2)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(2)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(2)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(2)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(2)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -73,10 +49,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(7)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(7)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(7)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(7)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(7)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(7)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -97,10 +73,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(13)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(13)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(13)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(13)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(13)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(13)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -121,10 +97,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(14)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(14)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(14)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(14)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(14)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(14)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -145,10 +121,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(15)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(15)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(15)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(15)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(15)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(15)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -169,10 +145,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(16)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(16)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(16)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(16)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(16)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(16)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -193,10 +169,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(17)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(17)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(17)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(17)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(17)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(17)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -215,7 +191,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(0)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -230,100 +206,19 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:62392/Service/DeviceService.svc/Nodes(1)</id>
-    <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-    <link rel="edit" title="Node" href="Nodes(1)" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(1)/Device" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(1)/Documents" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(1)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(1)/Node1">
-      <m:inline>
-        <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(1)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(1)/Node1" />
-          <entry>
-            <id>http://localhost:62392/Service/DeviceService.svc/Nodes(3)</id>
-            <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-            <link rel="edit" title="Node" href="Nodes(3)" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(3)/Device" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(3)/Documents" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(3)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(3)/Node1" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(3)/Node2" />
-            <title />
-            <updated>2013-11-07T22:29:30Z</updated>
-            <author>
-              <name />
-            </author>
-            <content type="application/xml">
-              <m:properties>
-                <d:ID m:type="Edm.Int32">3</d:ID>
-                <d:Name>alpha</d:Name>
-                <d:ParentID m:type="Edm.Int32">1</d:ParentID>
-                <d:DeviceID m:type="Edm.Int32">3</d:DeviceID>
-                <d:FolderID m:type="Edm.Int32" m:null="true" />
-              </m:properties>
-            </content>
-          </entry>
-          <entry>
-            <id>http://localhost:62392/Service/DeviceService.svc/Nodes(4)</id>
-            <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-            <link rel="edit" title="Node" href="Nodes(4)" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(4)/Device" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(4)/Documents" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(4)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(4)/Node1" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(4)/Node2" />
-            <title />
-            <updated>2013-11-07T22:29:30Z</updated>
-            <author>
-              <name />
-            </author>
-            <content type="application/xml">
-              <m:properties>
-                <d:ID m:type="Edm.Int32">4</d:ID>
-                <d:Name>beta</d:Name>
-                <d:ParentID m:type="Edm.Int32">1</d:ParentID>
-                <d:DeviceID m:type="Edm.Int32">4</d:DeviceID>
-                <d:FolderID m:type="Edm.Int32" m:null="true" />
-              </m:properties>
-            </content>
-          </entry>
-        </feed>
-      </m:inline>
-    </link>
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(1)/Node2" />
-    <title />
-    <updated>2013-11-07T22:29:30Z</updated>
-    <author>
-      <name />
-    </author>
-    <content type="application/xml">
-      <m:properties>
-        <d:ID m:type="Edm.Int32">1</d:ID>
-        <d:Name>B</d:Name>
-        <d:ParentID m:type="Edm.Int32">0</d:ParentID>
-        <d:DeviceID m:type="Edm.Int32">1</d:DeviceID>
-        <d:FolderID m:type="Edm.Int32" m:null="true" />
-      </m:properties>
-    </content>
-  </entry>
-  <entry>
     <id>http://localhost:62392/Service/DeviceService.svc/Nodes(2)</id>
     <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
     <link rel="edit" title="Node" href="Nodes(2)" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(2)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(2)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(2)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(2)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(2)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(2)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(2)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(2)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(2)/Children" />
           <entry>
             <id>http://localhost:62392/Service/DeviceService.svc/Nodes(5)</id>
             <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
@@ -331,10 +226,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(5)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(5)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(5)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(5)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(5)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(5)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -355,10 +250,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(6)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(6)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(6)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(6)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(6)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(6)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -377,7 +272,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(2)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -392,91 +287,19 @@
     </content>
   </entry>
   <entry>
-    <id>http://localhost:62392/Service/DeviceService.svc/Nodes(3)</id>
-    <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-    <link rel="edit" title="Node" href="Nodes(3)" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(3)/Device" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(3)/Documents" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(3)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(3)/Node1">
-      <m:inline>
-        <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(3)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(3)/Node1" />
-          <author>
-            <name />
-          </author>
-        </feed>
-      </m:inline>
-    </link>
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(3)/Node2" />
-    <title />
-    <updated>2013-11-07T22:29:30Z</updated>
-    <author>
-      <name />
-    </author>
-    <content type="application/xml">
-      <m:properties>
-        <d:ID m:type="Edm.Int32">3</d:ID>
-        <d:Name>alpha</d:Name>
-        <d:ParentID m:type="Edm.Int32">1</d:ParentID>
-        <d:DeviceID m:type="Edm.Int32">3</d:DeviceID>
-        <d:FolderID m:type="Edm.Int32" m:null="true" />
-      </m:properties>
-    </content>
-  </entry>
-  <entry>
-    <id>http://localhost:62392/Service/DeviceService.svc/Nodes(4)</id>
-    <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
-    <link rel="edit" title="Node" href="Nodes(4)" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(4)/Device" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(4)/Documents" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(4)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(4)/Node1">
-      <m:inline>
-        <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(4)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(4)/Node1" />
-          <author>
-            <name />
-          </author>
-        </feed>
-      </m:inline>
-    </link>
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(4)/Node2" />
-    <title />
-    <updated>2013-11-07T22:29:30Z</updated>
-    <author>
-      <name />
-    </author>
-    <content type="application/xml">
-      <m:properties>
-        <d:ID m:type="Edm.Int32">4</d:ID>
-        <d:Name>beta</d:Name>
-        <d:ParentID m:type="Edm.Int32">1</d:ParentID>
-        <d:DeviceID m:type="Edm.Int32">4</d:DeviceID>
-        <d:FolderID m:type="Edm.Int32" m:null="true" />
-      </m:properties>
-    </content>
-  </entry>
-  <entry>
     <id>http://localhost:62392/Service/DeviceService.svc/Nodes(5)</id>
     <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
     <link rel="edit" title="Node" href="Nodes(5)" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(5)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(5)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(5)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(5)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(5)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(5)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(5)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(5)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(5)/Children" />
           <author>
             <name />
           </author>
@@ -485,7 +308,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(5)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -506,13 +329,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(6)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(6)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(6)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(6)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(6)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(6)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(6)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(6)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(6)/Children" />
           <author>
             <name />
           </author>
@@ -521,7 +344,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(6)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -542,13 +365,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(7)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(7)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(7)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(7)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(7)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(7)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(7)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(7)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(7)/Children" />
           <entry>
             <id>http://localhost:62392/Service/DeviceService.svc/Nodes(8)</id>
             <category term="DeviceDatabaseModel.Node" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
@@ -556,10 +379,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(8)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(8)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(8)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(8)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(8)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(8)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -580,10 +403,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(9)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(9)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(9)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(9)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(9)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(9)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -604,10 +427,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(10)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(10)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(10)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(10)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(10)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(10)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -628,10 +451,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(11)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(11)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(11)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(11)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(11)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(11)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -652,10 +475,10 @@
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(12)/Device" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(12)/Documents" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(12)/Folder" />
-            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(12)/Node1" />
+            <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(12)/Children" />
             <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(12)/Node2" />
             <title />
-            <updated>2013-11-07T22:29:30Z</updated>
+            <updated>2013-11-14T22:53:25Z</updated>
             <author>
               <name />
             </author>
@@ -674,7 +497,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(7)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -695,13 +518,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(8)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(8)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(8)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(8)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(8)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(8)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(8)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(8)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(8)/Children" />
           <author>
             <name />
           </author>
@@ -710,7 +533,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(8)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -731,13 +554,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(9)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(9)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(9)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(9)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(9)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(9)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(9)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(9)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(9)/Children" />
           <author>
             <name />
           </author>
@@ -746,7 +569,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(9)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -767,13 +590,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(10)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(10)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(10)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(10)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(10)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(10)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(10)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(10)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(10)/Children" />
           <author>
             <name />
           </author>
@@ -782,7 +605,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(10)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -803,13 +626,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(11)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(11)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(11)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(11)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(11)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(11)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(11)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(11)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(11)/Children" />
           <author>
             <name />
           </author>
@@ -818,7 +641,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(11)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -839,13 +662,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(12)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(12)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(12)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(12)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(12)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(12)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(12)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(12)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(12)/Children" />
           <author>
             <name />
           </author>
@@ -854,7 +677,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(12)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -875,13 +698,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(13)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(13)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(13)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(13)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(13)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(13)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(13)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(13)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(13)/Children" />
           <author>
             <name />
           </author>
@@ -890,7 +713,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(13)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -911,13 +734,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(14)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(14)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(14)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(14)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(14)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(14)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(14)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(14)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(14)/Children" />
           <author>
             <name />
           </author>
@@ -926,7 +749,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(14)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -947,13 +770,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(15)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(15)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(15)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(15)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(15)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(15)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(15)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(15)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(15)/Children" />
           <author>
             <name />
           </author>
@@ -962,7 +785,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(15)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -983,13 +806,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(16)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(16)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(16)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(16)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(16)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(16)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(16)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(16)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(16)/Children" />
           <author>
             <name />
           </author>
@@ -998,7 +821,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(16)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>
@@ -1019,13 +842,13 @@
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Device" type="application/atom+xml;type=entry" title="Device" href="Nodes(17)/Device" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Documents" type="application/atom+xml;type=feed" title="Documents" href="Nodes(17)/Documents" />
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Folder" type="application/atom+xml;type=entry" title="Folder" href="Nodes(17)/Folder" />
-    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node1" type="application/atom+xml;type=feed" title="Node1" href="Nodes(17)/Node1">
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Children" type="application/atom+xml;type=feed" title="Children" href="Nodes(17)/Children">
       <m:inline>
         <feed>
-          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(17)/Node1</id>
-          <title type="text">Node1</title>
-          <updated>2013-11-07T22:29:30Z</updated>
-          <link rel="self" title="Node1" href="Nodes(17)/Node1" />
+          <id>http://localhost:62392/Service/DeviceService.svc/Nodes(17)/Children</id>
+          <title type="text">Children</title>
+          <updated>2013-11-14T22:53:25Z</updated>
+          <link rel="self" title="Children" href="Nodes(17)/Children" />
           <author>
             <name />
           </author>
@@ -1034,7 +857,7 @@
     </link>
     <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Node2" type="application/atom+xml;type=entry" title="Node2" href="Nodes(17)/Node2" />
     <title />
-    <updated>2013-11-07T22:29:30Z</updated>
+    <updated>2013-11-14T22:53:25Z</updated>
     <author>
       <name />
     </author>

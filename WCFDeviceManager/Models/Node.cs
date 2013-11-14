@@ -17,7 +17,7 @@ namespace WCFDeviceManager.Models
         public Node()
         {
             this.Documents = new HashSet<Document>();
-            this.Node1 = new HashSet<Node>();
+            this.Children = new HashSet<Node>();
         }
     
         public int ID { get; set; }
@@ -29,7 +29,7 @@ namespace WCFDeviceManager.Models
         public virtual Device Device { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual Folder Folder { get; set; }
-        public virtual ICollection<Node> Node1 { get; set; }
-        public virtual Node Node2 { get; set; }
+        public virtual ICollection<Node> Children { get; set; }
+        public virtual Node Parent { get; set; }
     }
 }

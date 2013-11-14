@@ -39,7 +39,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_ParentID" Association="DeviceDatabaseModel.Store.FK_ParentID">
             <End Role="Node" EntitySet="Node" />
-            <End Role="Node1" EntitySet="Node" />
+            <End Role="Children" EntitySet="Node" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Connection">
@@ -185,12 +185,12 @@
         </Association>
         <Association Name="FK_ParentID">
           <End Role="Node" Type="DeviceDatabaseModel.Store.Node" Multiplicity="0..1" />
-          <End Role="Node1" Type="DeviceDatabaseModel.Store.Node" Multiplicity="*" />
+          <End Role="Children" Type="DeviceDatabaseModel.Store.Node" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Node">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Node1">
+            <Dependent Role="Children">
               <PropertyRef Name="ParentID" />
             </Dependent>
           </ReferentialConstraint>
@@ -234,7 +234,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_ParentID" Association="DeviceDatabaseModel.FK_ParentID">
             <End Role="Node" EntitySet="Nodes" />
-            <End Role="Node1" EntitySet="Nodes" />
+            <End Role="Children" EntitySet="Nodes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Connection">
@@ -317,8 +317,8 @@
           <NavigationProperty Name="Device" Relationship="DeviceDatabaseModel.FK_DeviceID" FromRole="Node" ToRole="Device" />
           <NavigationProperty Name="Documents" Relationship="DeviceDatabaseModel.FK_NodeID" FromRole="Node" ToRole="Document" />
           <NavigationProperty Name="Folder" Relationship="DeviceDatabaseModel.FK_FolderID" FromRole="Node" ToRole="Folder" />
-          <NavigationProperty Name="Node1" Relationship="DeviceDatabaseModel.FK_ParentID" FromRole="Node" ToRole="Node1" />
-          <NavigationProperty Name="Node2" Relationship="DeviceDatabaseModel.FK_ParentID" FromRole="Node1" ToRole="Node" />
+          <NavigationProperty Name="Children" Relationship="DeviceDatabaseModel.FK_ParentID" FromRole="Node" ToRole="Children" />
+          <NavigationProperty Name="Parent" Relationship="DeviceDatabaseModel.FK_ParentID" FromRole="Children" ToRole="Node" />
         </EntityType>
         <Association Name="FK_Connection_ID">
           <End Role="Connection" Type="DeviceDatabaseModel.Connection" Multiplicity="0..1" />
@@ -394,12 +394,12 @@
         </Association>
         <Association Name="FK_ParentID">
           <End Role="Node" Type="DeviceDatabaseModel.Node" Multiplicity="0..1" />
-          <End Role="Node1" Type="DeviceDatabaseModel.Node" Multiplicity="*" />
+          <End Role="Children" Type="DeviceDatabaseModel.Node" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Node">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Node1">
+            <Dependent Role="Children">
               <PropertyRef Name="ParentID" />
             </Dependent>
           </ReferentialConstraint>
