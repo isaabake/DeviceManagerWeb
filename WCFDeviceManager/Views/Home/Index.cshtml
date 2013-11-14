@@ -14,8 +14,8 @@
 
 <body>
     <div id="btnmenu">
-        <button type="button" id="adddevbtn">Add Device</button>
-        <button type="button" id="deldevbtn">Delete Device</button>
+        <button type="button" id="adddevbtn" onclick="addhand()">Add Device</button>
+        <button type="button" id="deldevbtn" onclick="deletehand()">Delete Device</button>
 
     </div>
 
@@ -30,31 +30,35 @@
         </ul>
 
         <div>
-            <label for="dtypetb" class="required">Device Type</label>
+            <label for="dtypetb" class="dev-label">Device Type</label>
             <input type="text" id="dtypetb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-            <label for="dnametb" class="required">Device Name</label>
+            <label for="dnametb" id="dnamelb" class="dev-label">Device Name</label>
             <input type="text" id="dnametb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-            <label for="dserialtb" class="required">Serial Number</label>
+            <label for="dserialtb" class="dev-label">Serial Number</label>
             <input type="text" id="dserialtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-            <label for="dgidtb" class="required">Global Device ID</label>
+            <label for="dgidtb" class="dev-label">Global Device ID</label>
             <input type="text" id="dgidtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-            <label for="firmtb" class="required">Firmware Version</label>
+            <label for="firmtb" class="dev-label">Firmware Version</label>
             <input type="text" id="firmtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-            <label for="dpartnumtb" class="required">Part Number</label>
+            <label for="dpartnumtb" class="dev-label">Part Number</label>
             <input type="text" id="dpartnumtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-            <label for="dfidtb" class="required">FID String</label>
+            <label for="dfidtb" class="dev-label">FID String</label>
             <input type="text" id="dfidtb" class="dev-textbox" style="background-color: lightgray" disabled />
 
-            <label for="desctb" class="required">Description</label>
+            <label for="desctb" class="dev-label">Description</label>
             <input type="text" id="desctb" class="dev-textbox" style="background-color: lightgray" disabled />
 
             <script>
+
+                var treeview;
+
+                var OldValues = new Array();
 
                 //TODO: need to save old values if cancle is called
                 function editHand(e) {
@@ -63,7 +67,6 @@
                     for (var i = 0; i < inputs.length; i++) {
                         inputs[i].disabled = false;
                         inputs[i].style.backgroundColor = "white";
-
 
                     }
 
@@ -74,9 +77,41 @@
                     for (var i = 0; i < inputs.length; i++) {
                         inputs[i].disabled = true;
                         inputs[i].style.backgroundColor = "lightgray";
-
+                        inputs[i].value = OldValues[i];
                     }
                 }
+
+                function addhand(e) {
+                    var inputs = document.getElementsByClassName("dev-textbox");
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].value = "";
+                        inputs[i].disabled = false;
+                        inputs[i].style.backgroundColor = "white";
+                    }
+
+                    var length = treeview.dataSource.data().length;
+                    //var nextID = treeview.dataSource.data()[length];
+                    treeview.append({ ID: 8000, Name: "Test", ParentID: 0, DeviceID: 900 });
+                }
+
+                function deletehand(e) {
+                    //console.log(treeview.select());
+                    var selectedNode = treeview.select();
+                    var nodeItem = treeview.dataItem(selectedNode);
+                    var selectedItem = treeview.dataSource.get(nodeItem.ID);
+                    //console.log(selectedItem);
+                    treeview.remove(selectedNode);
+                    treeview.dataSource.remove(selectedItem);
+                    treeview.dataSource.sync();
+
+                    console.log(treeview.dataSource.data()[0].Name);
+                    var inputs = document.getElementsByClassName("dev-textbox");
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].value = "";
+                    }
+
+                }
+
             </script>
 
             <button type="button" id="editbtn" onclick="editHand()">Edit</button>
@@ -89,23 +124,34 @@
 
         <div>
 
-            <label for="ipaddresstb" class="required">IP Address</label>
-            <input type="text" id="ipaddresstb" class="conn-textbox" />
+            <label for="baudratetb" class="required">Baud Rate</label>
+            <input type="text" id="baudratetb" class="conn-textbox" />
 
-            <label for="portnumtb" class="required">Port Number</label>
-            <input type="text" id="portnumtb" name="name" class="conn-textbox" />
+            <label for="databitstb" class="required">Data Bitsr</label>
+            <input type="text" id="databitstb" name="name" class="conn-textbox" />
 
-            <input list="conntype">
-            <datalist id="conntype">
-                <option>
-                Serial
-                    <option>
-                Network
-            </datalist>
+            <label for="stopbitstb" class="required">Stop Bits</label>
+            <input type="text" id="stopbitstb" class="conn-textbox" />
+
+            <label for="rtsctstb" class="required">RTSCTS</label>
+            <input type="text" id="rtsctstb" class="conn-textbox" />
+
+            <label for="dtrtb" class="required">DTR</label>
+            <input type="text" id="dtrtb" class="conn-textbox" />
+
+            <label for="rtstb" class="required">RTS</label>
+            <input type="text" id="rtstb" class="conn-textbox" />
+
+            <label for="xonofftb" class="required">XonXoff</label>
+            <input type="text" id="xonofftb" class="conn-textbox" />
+
+            <label for="typetb" class="required">Type</label>
+            <input type="text" id="typetb" class="conn-textbox" />
 
         </div>
 
         <div>
+            //kendo UI listview goes here? 
         </div>
     </div>
 
@@ -115,6 +161,7 @@
         <script>
             //TODO: eventually set page size if connection tree needs to scroll because it's large
             $(document).ready(function () {
+
 
                 var nodeModel = {
                     id: "ID",
@@ -142,7 +189,7 @@
                     //children: Nodes
                 };
 
-                var treeDataSource = {
+                var treeDataSource = new kendo.data.HierarchicalDataSource({
                     type: "odata",
                     transport: {
                         read: {
@@ -174,6 +221,7 @@
                             url: function (data) {
                                 return "/Service/DeviceService.svc/Nodes(" + data.ID + ")";
                             },
+                            //dataType: "json"
                             type: "DELETE",
                             headers: {
                                 DataServiceVersion: "2.0",
@@ -183,41 +231,417 @@
                     },
 
                     schema: {
-                        model: nodeModel
-                    }
-                };
+                        model: nodeModel,
+                        data: function (response) {
 
-                $("#treeview").kendoTreeView({
-                    dataSource: treeDataSource,
-                    dataTextField: "Name"
+                            /*var data = [
+                            {
+                                id: 1, Name: "Tea", items: [
+                                { id: 2, Name: "Earl Gray" },
+                                { id: 3, Name: "Oolong" }
+                                ]
+                            }
+                            ];*/
+                            //format for a hiearchical array
+                            
+
+                            var newData = new kendo.data.ObservableArray([]);
+                            /*var items = new kendo.data.ObservableArray([]);
+                            items.push(response.d.results[1]);
+                            response.d.results[0].items = items;
+                            newData.push(response.d.results[0]);*/
+                            for (var i = 0; i < response.d.results.length; i++) {
+                                console.log(response.d.results[i].DeviceID);
+                                newData.push(response.d.results[i]);
+
+                            }
+                            //console.log(blah);
+                            //newData.push(response.d.results[0]);
+                            return newData;
+                            
+                        }
+                    },
+                    sync: function (e) {
+                        console.log("SyncDone");
+                    },
+                    requestEnd: function (e) {
+                        var response = e.response;
+                        var type = e.type;
+                        console.log("RequestEnd");
+                        console.log(type);
+                        
+                },
+
+                    batch: false,
+                    error: function (e) {
+                        console.log(e.status); // displays "error"
+                        console.log(e.errors);
+                        console.log(e.xhr.responseText);
+                    }
                 });
 
 
+               
+                var deviceModel =
+              {
+                  id: "ID",
+                  fields:
+                  {
+                      ID: {
+                          type: "number"
+                      },
+                      Name: {
+                          type: "string"
+                      },
+                      DeviceTypeID:
+                      {
+                          type: "number"
+                      },
+                      ConnectionID:
+                    {
+                        type: "number"
+                    },
+                      Description:
+                          {
+                              type: "string"
+                          },
+                      SerialNumber:
+                          {
+                              type: "string"
+                          },
+                      FirmwareRevision:
+                          {
+                              type: "string"
+                          },
+                      PartNumber:
+                          {
+                              type: "string"
+                          },
+                      FIDString:
+                          {
+                              type: "string"
+                          }
+
+                  },
+                  hasChildren: function () {
+                      return false;
+                  },
+              };
 
 
-                function onSelect(e) {
-                    var dataItem = this.dataItem(e.node);
-                    //TODO: is this already loaded or is it being requested? Don't want all that stuff loaded until asked for
-                    document.getElementById("dnametb").value = dataItem.get("Name");
-                    document.getElementById("desctb").value = dataItem.get("Description");
-                    document.getElementById("dtypetb").value = dataItem.get("DeviceTypeID");
-                    document.getElementById("dserialtb").value = dataItem.get("SerialNumber");
-                    document.getElementById("dgidtb").value = dataItem.get("ID");
-                    document.getElementById("firmtb").value = dataItem.get("FirmwareRevision");
-                    document.getElementById("dpartnumtb").value = dataItem.get("PartNumber");
-                    document.getElementById("dfidtb").value = dataItem.get("FIDString");
+
+
+                var deviceDataSource = new kendo.data.HierarchicalDataSource({
+                    type: "odata",
+                    transport: {
+                        read: {
+                            url: "/Service/DeviceService.svc/Devices",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        create: {
+                            url: "/Service/DeviceService.svc/Devices",
+                            type: "POST",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        update: {
+                            url: function (data) {
+                                return "/Service/DeviceService.svc/Devices(" + data.ID + ")";
+                            },
+                            type: "PUT",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        destroy: {
+                            url: function (data) {
+                                return "/Service/DeviceService.svc/Devices(" + data.ID + ")";
+                            },
+                            type: "DELETE",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        }
+                    },
+
+                    schema: {
+                        model: deviceModel
+                    }
+                });
+
+              
+
+                $("#treeview").kendoTreeView({
+                    dataSource: treeDataSource,
+                    //dataSource: deviceDataSource,
+                    dataTextField: "Name",
+                    select: onSelect,
+                    dragAndDrop: true
+                });
+
+                treeview = $("#treeview").data("kendoTreeView");
+
+                var deviceTypeModel =
+                {
+                    id: "ID",
+                    fields:
+                    {
+                        ID: {
+                            type: "number"
+                        },
+                        Name:
+                        {
+                            type: "string"
+                        },
+                        CanHaveChildren:
+                    {
+                        type: "number"
+                    }
+                    }
+                    };
+
+
+               var deviceTypeDataSource =  new kendo.data.DataSource({
+                    type: "odata",
+                    transport:
+                        {
+                            read:
+                                {
+                                    url: "/Service/DeviceService.svc/DeviceTypes",
+                                    headers: {
+                                        DataServiceVersion: "2.0",
+                                        MaxDataServiceVersion: "2.0"
+                                    }
+                                }
+                        },
+                    schema:
+                        {
+                            model: deviceTypeModel
+                        }
+
+               });
+
+
+               var connectionModel =
+              {
+                  id: "ID",
+                  fields:
+                  {
+                      ID: {
+                          type: "number"
+                      },
+                      ConnectionTypeID:
+                      {
+                          type: "number"
+                      },
+                      BaudRate:
+                  {
+                      type: "number"
+                  },
+                      DataBits:
+               {
+                   type: "number"
+               },
+                      StopBits:
+               {
+                   type: "number"
+               },
+                      RTSCTS:
+               {
+                   type: "number"
+               },
+                      DTR:
+               {
+                   type: "number"
+               },
+                      RTS:
+               {
+                   type: "number"
+               },
+                      XonXoff:
+               {
+                   type: "number"
+               }
+                  }
+              };
+
+               var connectionDataSource = new kendo.data.DataSource({
+                   type: "odata",
+                   transport:
+                       {
+                           read:
+                               {
+                                   url: "/Service/DeviceService.svc/Connections",
+                                   headers: {
+                                       DataServiceVersion: "2.0",
+                                       MaxDataServiceVersion: "2.0"
+                                   }
+                               }
+                       },
+                   schema:
+                       {
+                           model: connectionModel
+                       }
+
+               });
+
+               var connectionTypeModel =
+               {
+                   id: "ID",
+                   fields:
+                   {
+                       ID: {
+                           type: "number"
+                       },
+                       Name:
+                       {
+                           type: "string"
+                       },
+                   }
+               };
+
+               var connectionTypeDataSource = new kendo.data.DataSource({
+                   type: "odata",
+                   transport:
+                       {
+                           read:
+                               {
+                                   url: "/Service/DeviceService.svc/ConnectionTypes",
+                                   headers: {
+                                       DataServiceVersion: "2.0",
+                                       MaxDataServiceVersion: "2.0"
+                                   }
+                               }
+                       },
+                   schema:
+                       {
+                           model: connectionTypeModel
+                       }
+
+               });
+
+              
+             
+
+
+               function onSelect(e) {
+
+                   
+                   console.log(JSON.stringify(treeDataSource.data().toJSON()));
+                    var nodeItem = this.dataItem(e.node);
+                    //console.log(nodeItem.DeviceID);
+                    //TODO: kinda of terrible, need to make async functions later
+                    //TODO: differentiate between devices and folders
+                    var typeID;
+                    var connID;
+                    var connTypeID;
+                    OldValues = [];
+                    deviceDataSource.fetch(function () {
+                        var dataItem = deviceDataSource.get(nodeItem.DeviceID);
+
+                        if (nodeItem.FolderID == undefined) {
+
+
+                            
+
+                            inputs = document.getElementsByClassName("dev-label");
+                            for (var i = 0; i < inputs.length; i++) {
+                                inputs[i].style.visibility = 'visible';
+
+                            }
+                            document.getElementById("dnamelb").innerHTML = "Device Name";
+
+
+                            typeID = dataItem.DeviceTypeID;
+                            connID = dataItem.ConnectionID;
+                            document.getElementById("dnametb").value = dataItem.get("Name");
+                            document.getElementById("desctb").value = dataItem.get("Description");
+                            //document.getElementById("dtypetb").value = dataItem.get("DeviceTypeID");
+                            document.getElementById("dserialtb").value = dataItem.get("SerialNumber");
+                            document.getElementById("dgidtb").value = dataItem.get("ID");
+                            document.getElementById("firmtb").value = dataItem.get("FirmwareRevision");
+                            document.getElementById("dpartnumtb").value = dataItem.get("PartNumber");
+                            document.getElementById("dfidtb").value = dataItem.get("FIDString");
+
+                            var inputs = document.getElementsByClassName("dev-textbox");
+                            for (var i = 0; i < inputs.length; i++) {
+                                inputs[i].style.visibility = 'visible';
+                                inputs[i].disabled = true;
+                                inputs[i].style.backgroundColor = "lightgray";
+                                OldValues[i] = inputs[i].value;
+
+                            }
+                        }
+                        else {
+                            console.log("It's a folder");
+                            //only display the folder textboxes
+                            var inputs = document.getElementsByClassName("dev-textbox");
+                            for (var i = 0; i < inputs.length; i++) {
+                                inputs[i].style.visibility = 'hidden';
+
+                            }
+
+                            inputs = document.getElementsByClassName("dev-label");
+                            for (var i = 0; i < inputs.length; i++) {
+                                inputs[i].style.visibility = 'hidden';
+
+                            }
+
+                            document.getElementById("dnametb").style.visibility = 'visible';
+                            document.getElementById("dnamelb").innerHTML = "Folder Name";
+                            document.getElementById("dnamelb").style.visibility = 'visible';
+
+                            document.getElementById("dnametb").value = nodeItem.get("Name");
+                        }
+                    });
+
+                    //get the name of the device type rather than the ID
+                    deviceTypeDataSource.fetch(function () {
+                        var typeItem = deviceTypeDataSource.get(typeID);
+                        if (typeItem !== undefined) {
+                            document.getElementById("dtypetb").value = typeItem.get("Name");
+                        }
+                    });
+
+                    //get the connection information
+                    connectionDataSource.fetch(function () {
+                        var ConnectionItem = connectionDataSource.get(connID);
+                        if (ConnectionItem !== undefined) {
+                            connTypeID = ConnectionItem.ConnectionTypeID;
+                            //console.log(connTypeID);
+                            document.getElementById("baudratetb").value = ConnectionItem.get("BaudRate");
+                            document.getElementById("databitstb").value = ConnectionItem.get("DataBits");
+                            document.getElementById("stopbitstb").value = ConnectionItem.get("StopBits");
+                            document.getElementById("rtsctstb").value = ConnectionItem.get("RTSCTS");
+                            document.getElementById("dtrtb").value = ConnectionItem.get("DTR");
+                            document.getElementById("rtstb").value = ConnectionItem.get("RTS");
+                            document.getElementById("xonofftb").value = ConnectionItem.get("XonXoff");
+                        }
+
+                    });
+
+                    //get the connection type name
+                    connectionTypeDataSource.fetch(function () {
+                        //console.log(connTypeID);
+
+                        //TODO: connection breaking when select connection tab first
+                        var connTypeItem = connectionTypeDataSource.get(connTypeID);
+                        if (connTypeItem !== undefined) {
+                            document.getElementById("typetb").value = connTypeItem.get("Name");
+                        }
+                    });
 
 
                 }
 
-
-
-                $("#treeview").kendoTreeView({
-                    dataSource: treeDataSource,
-                    dataTextField: "Name",
-                    select: onSelect
-                });
-
+              
 
                 $("#tabstrip").kendoTabStrip({
                     animation: {
