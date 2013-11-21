@@ -15,7 +15,7 @@
 <body>
     <div id="btnmenu">
         <button type="button" id="adddevbtn" onclick="addhand()">Add Device</button>
-        <button type="button" id="deldevbtn" onclick="deletehand()">Delete Device</button>
+        <button type="button" id="deldevbtn" onclick="deletehand()">Delete</button>
 
     </div>
 
@@ -57,6 +57,8 @@
             <script>
 
                 var treeview;
+                var deviceDataSource;
+                var testDataSource;
 
                 var OldValues = new Array();
 
@@ -89,9 +91,19 @@
                         inputs[i].style.backgroundColor = "white";
                     }
 
-                    var length = treeview.dataSource.data().length;
+                    deviceDataSource.fetch(function () {
+                        deviceDataSource.add({ ID: 700, Name: "Test", DeviceTypeID: 0, ConnectionID: 0, Description: "Hello", SerialNumber: "19999099", FirmwareRevision: "1.0", PartNumber: 10, FIDString: "99" });
+                        deviceDataSource.sync();
+                    });
+
+                    testDataSource.fetch(function () {
+                        //treeview.append({ ID: 8000, Name: "Test", ParentID: 0, DeviceID: 900 });
+                        
+                        //testDataSource.add({ ID: 8000, Name: "Test", ParentID: 0, DeviceID: 900 });
+                        //testDataSource.sync();
+                    });
                     //var nextID = treeview.dataSource.data()[length];
-                    treeview.append({ ID: 8000, Name: "Test", ParentID: 0, DeviceID: 900 });
+                    
                 }
 
                 function deletehand(e) {
@@ -99,24 +111,90 @@
                     var selectedNode = treeview.select();
                     var nodeItem = treeview.dataItem(selectedNode);
                     var selectedItem = treeview.dataSource.get(nodeItem.ID);
-                    //console.log(selectedItem);
-                    treeview.remove(selectedNode);
-                    treeview.dataSource.remove(selectedItem);
-                    treeview.dataSource.sync();
 
-                    console.log(treeview.dataSource.data()[0].Name);
-                    var inputs = document.getElementsByClassName("dev-textbox");
-                    for (var i = 0; i < inputs.length; i++) {
-                        inputs[i].value = "";
+                    if (nodeItem.DeviceID !== null) {
+
+                        //TODO: do this only if remove works
+                        treeview.remove(selectedNode);
+
+                        testDataSource.fetch(function () {
+                            var selectedTestItem = testDataSource.get(nodeItem.ID);
+                            testDataSource.remove(selectedTestItem);
+                            testDataSource.sync();
+                        });
+
+                        var deviceItem = deviceDataSource.get(nodeItem.DeviceID);
+                        deviceDataSource.remove(deviceItem);
+                        deviceDataSource.sync();
+
+                        treeview.dataSource.sync();
+
+                        console.log(treeview.dataSource.data()[0].Name);
+                        var inputs = document.getElementsByClassName("dev-textbox");
+                        for (var i = 0; i < inputs.length; i++) {
+                            inputs[i].value = "";
+                        }
                     }
 
+                    if (nodeItem.FolderID !== null) {
+
+                        //TODO: do this only if remove works
+                        treeview.remove(selectedNode);
+
+                        testDataSource.fetch(function () {
+                            var selectedTestItem = testDataSource.get(nodeItem.ID);
+                            testDataSource.remove(selectedTestItem);
+                            testDataSource.sync();
+                        });
+
+                        var folderItem = deviceDataSource.get(nodeItem.FolderID);
+                        deviceDataSource.remove(folderItem);
+                        deviceDataSource.sync();
+
+                        treeview.dataSource.sync();
+
+                        //TODO: Clear out folder display
+                    }
+
+                    //TODO: Bug with edit, disable cancle until edit is pressed
+
+                }
+
+                function applyHand(e) {
+                    var selectedNode = treeview.select();
+                    var nodeItem = treeview.dataItem(selectedNode);
+
+                    testDataSource.fetch(function () {
+
+                        //Update the Node
+                        var selectedTestItem = testDataSource.get(nodeItem.ID);
+                        var nameText = document.getElementById("dnametb").value;
+                        selectedTestItem.set("Name", nameText);
+                        testDataSource.sync();
+
+                        //Update the device
+                        var deviceItem = deviceDataSource.get(nodeItem.DeviceID);
+                        deviceItem.set("Name", nameText);
+                        var descText = document.getElementById("desctb").value;
+                        deviceItem.set("Description", descText);
+                        deviceDataSource.sync();
+
+                        //Need to get device type ID and Connection ID's????
+
+                        //Refresh the treeview data source
+                        treeview.dataSource.sync();
+
+                        //TODO: Refresh the treeview itself
+
+
+                    });
                 }
 
             </script>
 
             <button type="button" id="editbtn" onclick="editHand()">Edit</button>
             <button type="button" id="cancelbtn" onclick="cancleHand()">Cancel</button>
-            <button type="button" id="applybtn">Apply</button>
+            <button type="button" id="applybtn" onclick="applyHand()">Apply</button>
 
         </div>
 
@@ -162,6 +240,23 @@
             //TODO: eventually set page size if connection tree needs to scroll because it's large
             $(document).ready(function () {
 
+                var nodeChildren = {
+                    type: "odata",
+                    transport: {
+                        read: {
+                            url: function (options) {
+                                return kendo.format("/Service/DeviceService.svc/Nodes({0})/Children", options.ID);
+                            }
+                        }
+                    },
+                    schema: {
+                        model: {
+                            hasChildren: "Children",
+                            children: nodeChildren
+                        }
+                    }
+                }
+
 
                 var nodeModel = {
                     id: "ID",
@@ -183,11 +278,14 @@
                             type: "number"
                         }
                     },
-                    hasChildren: function () {
+                    /*hasChildren: function () {
                         return false;
-                    },
-                    //children: Nodes
+                    },*/
+                    hasChildren: "Children",
+                    children: nodeChildren
                 };
+
+             
 
                 var treeDataSource = new kendo.data.HierarchicalDataSource({
                     type: "odata",
@@ -246,21 +344,19 @@
                             
 
                             var newData = new kendo.data.ObservableArray([]);
-                            /*var items = new kendo.data.ObservableArray([]);
-                            items.push(response.d.results[1]);
-                            response.d.results[0].items = items;
-                            newData.push(response.d.results[0]);*/
-                            for (var i = 0; i < response.d.results.length; i++) {
-                                console.log(response.d.results[i].DeviceID);
-                                newData.push(response.d.results[i]);
+                            
+                           for (var i = 0; i < response.d.results.length; i++) {
+                               
+                               newData.push(response.d.results[i]);
+                               var data = response.d.results[i];
+                               //console.log(data[0]);
 
                             }
-                            //console.log(blah);
-                            //newData.push(response.d.results[0]);
+                           
                             return newData;
                             
                         }
-                    },
+                   },
                     sync: function (e) {
                         console.log("SyncDone");
                     },
@@ -274,8 +370,101 @@
 
                     batch: false,
                     error: function (e) {
-                        console.log(e.status); // displays "error"
-                        console.log(e.errors);
+                        //console.log(e.status); // displays "error"
+                        //console.log(e.errors);
+                        console.log("Node Datasource Error");
+                        console.log(e.xhr.responseText);
+                    }
+                });
+
+                testDataSource = new kendo.data.DataSource({
+                    type: "odata",
+                    transport: {
+                        read: {
+                            url: "/Service/DeviceService.svc/Nodes",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        create: {
+                            url: "/Service/DeviceService.svc/Nodes",
+                            type: "POST",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        update: {
+                            url: function (data) {
+                                return "/Service/DeviceService.svc/Nodes(" + data.ID + ")";
+                            },
+                            type: "PUT",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        destroy: {
+                            url: function (data) {
+                                return "/Service/DeviceService.svc/Nodes(" + data.ID + ")";
+                            },
+                            //dataType: "json"
+                            type: "DELETE",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        }
+                    },
+
+                    schema: {
+                        model: nodeModel,
+                        data: function (response) {
+
+                            /*var data = [
+                            {
+                                id: 1, Name: "Tea", items: [
+                                { id: 2, Name: "Earl Gray" },
+                                { id: 3, Name: "Oolong" }
+                                ]
+                            }
+                            ];*/
+                            //format for a hiearchical array
+
+
+                            var newData = new kendo.data.ObservableArray([]);
+                            /*var items = new kendo.data.ObservableArray([]);
+                            items.push(response.d.results[1]);
+                            response.d.results[0].items = items;
+                            newData.push(response.d.results[0]);*/
+                            for (var i = 0; i < response.d.results.length; i++) {
+                                console.log(response.d.results[i].DeviceID);
+                                newData.push(response.d.results[i]);
+
+                            }
+                            //console.log(blah);
+                            //newData.push(response.d.results[0]);
+                            return newData;
+
+                        }
+                    },
+                    sync: function (e) {
+                        console.log("SyncDone");
+                    },
+                    requestEnd: function (e) {
+                        var response = e.response;
+                        var type = e.type;
+                        console.log("RequestEnd");
+                        console.log(type);
+
+                    },
+
+                    batch: false,
+                    error: function (e) {
+                        //console.log(e.status); // displays "error"
+                        //console.log(e.errors);
+                        console.log("Test Datasource Error");
                         console.log(e.xhr.responseText);
                     }
                 });
@@ -331,7 +520,7 @@
 
 
 
-                var deviceDataSource = new kendo.data.HierarchicalDataSource({
+                deviceDataSource = new kendo.data.DataSource({
                     type: "odata",
                     transport: {
                         read: {
@@ -373,6 +562,12 @@
 
                     schema: {
                         model: deviceModel
+                    },
+                    error: function (e) {
+                        //console.log(e.status); // displays "error"
+                        //console.log(e.errors);
+                        console.log("Device Datasource error");
+                        console.log(e.xhr.responseText);
                     }
                 });
 
