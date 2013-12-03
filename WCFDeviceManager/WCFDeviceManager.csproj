@@ -201,12 +201,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConectionTypeValidation.cs" />
     <Compile Include="Models\Connection.cs">
       <DependentUpon>DeviceDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ConnectionType.cs">
       <DependentUpon>DeviceDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConnectionValidation.cs" />
     <Compile Include="Models\Device.cs">
       <DependentUpon>DeviceDataModel.tt</DependentUpon>
     </Compile>
@@ -228,12 +230,16 @@
     <Compile Include="Models\DeviceType.cs">
       <DependentUpon>DeviceDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeviceTypeValidation.cs" />
+    <Compile Include="Models\DeviceValidation.cs" />
     <Compile Include="Models\Document.cs">
       <DependentUpon>DeviceDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocumentValidation.cs" />
     <Compile Include="Models\Folder.cs">
       <DependentUpon>DeviceDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FolderValidation.cs" />
     <Compile Include="Models\Node.cs">
       <DependentUpon>DeviceDataModel.tt</DependentUpon>
     </Compile>
