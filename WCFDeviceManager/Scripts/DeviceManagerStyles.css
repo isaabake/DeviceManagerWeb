@@ -2,6 +2,10 @@
 
 }
 
+.btnmen
+{
+    padding: 20px;
+}
 
  .btn
  {
@@ -9,6 +13,29 @@
    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #F8F8F8), color-stop(1.0, #AAAAAA));
    width: 33%;
    height: 100%;
+}
+
+.demo-section
+{
+    float: left;
+  width: 150px;
+padding: 20px;
+-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.45), inset 0 0 30px rgba(0,0,0,0.07);
+-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.45), inset 0 0 30px rgba(0,0,0,0.07);
+box-shadow: 0 1px 2px rgba(0,0,0,0.45), inset 0 0 30px rgba(0,0,0,0.07);
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+ background: rgba(63, 66, 69, 0.45);
+
+  
+}
+
+ #ftabstrip
+{
+    height:100%;
+    border-width:0;
+    width: 700px;
 }
 
 
