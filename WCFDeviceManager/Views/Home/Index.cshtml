@@ -8,14 +8,16 @@
     <title></title>
     <link href="~/Scripts/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="~/Scripts/styles/kendo.default.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Scripts/DeviceManagerStyles.css">
     <script src="~/Scripts/js/jquery.min.js"></script>
     <script src="~/Scripts/js/kendo.all.min.js"></script>
+    <script src="Scripts/datajs-1.1.1.js"></script>
 </head>
 
 <body>
     <div id="btnmenu">
-        <button type="button" id="adddevbtn" onclick="addhand()">Add Device</button>
-        <button type="button" id="deldevbtn" onclick="deletehand()">Delete</button>
+        <button class="k-button" type="button" id="adddevbtn" onclick="addhand()">Add Device</button>
+        <button class="k-button" type="button" id="deldevbtn" onclick="deletehand()">Delete</button>
 
     </div>
 
@@ -31,7 +33,7 @@
 
         <div>
             <label for="dtypetb" class="dev-label">Device Type</label>
-            <input type="text" id="dtypetb" class="dev-textbox" style="background-color: lightgray" disabled />
+            <input id="dtypetb" class="dev-textbox" disabled />
 
             <label for="dnametb" id="dnamelb" class="dev-label">Device Name</label>
             <input type="text" id="dnametb" class="dev-textbox" style="background-color: lightgray" disabled />
@@ -54,11 +56,28 @@
             <label for="desctb" class="dev-label">Description</label>
             <input type="text" id="desctb" class="dev-textbox" style="background-color: lightgray" disabled />
 
+            <script id="delete-confirmation" type="text/x-kendo-template">
+                <p class="delete-message">This item has children, are you sure you want to delete it and all its children?</p>
+
+             <button class="delete-confirm k-button">Yes</button>
+             <a href="#" class="delete-cancel">No</a>
+            </script>
+
+             <script id="add-confirmation" type="text/x-kendo-template">
+                <p class="add-message">Select what you want to add</p>
+
+             <button class="device-confirm k-button">Device</button>
+               <button class="folder-confirm k-button">Folder</button>
+             
+            </script>
+
             <script>
 
                 var treeview;
                 var deviceDataSource;
+                var folderDataSource;
                 var testDataSource;
+                var dropdownlist;
 
                 var OldValues = new Array();
 
@@ -71,6 +90,7 @@
                         inputs[i].style.backgroundColor = "white";
 
                     }
+                    dropdownlist.enable(true);
 
                 }
 
@@ -81,29 +101,86 @@
                         inputs[i].style.backgroundColor = "lightgray";
                         inputs[i].value = OldValues[i];
                     }
+                    //TODO: reset old value for dropdown
+                    dropdownlist.enable(false);
                 }
 
                 function addhand(e) {
-                    var inputs = document.getElementsByClassName("dev-textbox");
+
+
+
+                    var kendoWindow = $("<div />").kendoWindow({
+                        title: "Add Item",
+                        resizable: false,
+                        modal: true
+                    });
+
+                    kendoWindow.data("kendoWindow").content($("#add-confirmation").html()).center().open();
+
+                    kendoWindow.find(".device-confirm,.folder-confirm").click(function () {
+                        if ($(this).hasClass("device-confirm")) {
+                            alert("Device!");
+                            //add Device
+                        }
+                        else {
+                            alert("Folder!");
+                            //add folder
+                        }
+                        kendoWindow.data("kendoWindow").close();
+
+                    }).end();
+
+                    function sortNumber(a, b) {
+                        return a - b;
+                    }
+
+                    var ids = [];
+                    var newID;
+                    deviceDataSource.read();
+                    deviceDataSource.fetch(function () {
+                        console.log("DEVICE DATA");
+                        var devices = deviceDataSource.data();
+                        console.log(devices[0].Name);
+                        for (var i = 0; i < devices.length; i++) {
+                            ids.push(parseInt(devices[i].ID));
+                        }
+
+                        ids = ids.sort(sortNumber);
+                        newID = ids[ids.length - 1] + 1;
+                        //window.alert(ids[10]);
+                        console.log(ids[10]);
+                    });
+
+                    var test = { ID: newID, Name: "Test", DeviceTypeID: 0, ConnectionID: 0, Description: "", SerialNumber: "", FirmwareRevision: "", PartNumber: "", FIDString: "" };
+
+                    OData.request({
+                        requestUri: "/Service/DeviceService.svc/Devices",
+                        method: "POST",
+                        data: test
+                    });
+
+                    deviceDataSource.read();
+
+
+
+
+                    /*var inputs = document.getElementsByClassName("dev-textbox");
                     for (var i = 0; i < inputs.length; i++) {
                         inputs[i].value = "";
                         inputs[i].disabled = false;
                         inputs[i].style.backgroundColor = "white";
-                    }
-
-                    deviceDataSource.fetch(function () {
-                        deviceDataSource.add({ ID: 700, Name: "Test", DeviceTypeID: 0, ConnectionID: 0, Description: "Hello", SerialNumber: "19999099", FirmwareRevision: "1.0", PartNumber: 10, FIDString: "99" });
-                        deviceDataSource.sync();
-                    });
-
-                    testDataSource.fetch(function () {
-                        //treeview.append({ ID: 8000, Name: "Test", ParentID: 0, DeviceID: 900 });
+                    }*/
+                    /*deviceDataSource.read();
+                    deviceDataSource.fetch();
+                    deviceDataSource.add({ Name: "Test", DeviceTypeID: 0, ConnectionID: 0, Description: "Hello", SerialNumber: "19999099", FirmwareRevision: "1.0", PartNumber: 10, FIDString: "99" });
+                    deviceDataSource.sync();*/
+                    /*deviceDataSource.fetch(function () {
                         
-                        //testDataSource.add({ ID: 8000, Name: "Test", ParentID: 0, DeviceID: 900 });
-                        //testDataSource.sync();
-                    });
-                    //var nextID = treeview.dataSource.data()[length];
-                    
+                        console.log("Device Data");
+                        console.log(JSON.stringify(deviceDataSource.data().toJSON()));
+                        deviceDataSource.sync();
+                    });*/
+
                 }
 
                 function deletehand(e) {
@@ -112,51 +189,71 @@
                     var nodeItem = treeview.dataItem(selectedNode);
                     var selectedItem = treeview.dataSource.get(nodeItem.ID);
 
-                    if (nodeItem.DeviceID !== null) {
-
-                        //TODO: do this only if remove works
-                        treeview.remove(selectedNode);
-
-                        testDataSource.fetch(function () {
-                            var selectedTestItem = testDataSource.get(nodeItem.ID);
-                            testDataSource.remove(selectedTestItem);
-                            testDataSource.sync();
+                    console.log(selectedItem.children.data().length);
+                    if (selectedItem.children.data().length !== 0) {
+                        //TODO: change back to load on demand,
+                        //ask if has children some other way
+                        var kendoWindow = $("<div />").kendoWindow({
+                            title: "Warning",
+                            resizable: false,
+                            modal: true
                         });
 
-                        var deviceItem = deviceDataSource.get(nodeItem.DeviceID);
-                        deviceDataSource.remove(deviceItem);
-                        deviceDataSource.sync();
 
-                        treeview.dataSource.sync();
+                        kendoWindow.data("kendoWindow").content($("#delete-confirmation").html()).center().open();
 
-                        console.log(treeview.dataSource.data()[0].Name);
-                        var inputs = document.getElementsByClassName("dev-textbox");
-                        for (var i = 0; i < inputs.length; i++) {
-                            inputs[i].value = "";
+
+                    }
+                    else {
+
+                        if (nodeItem.DeviceID !== null) {
+
+                            //TODO: do this only if remove works
+                            //treeview.remove(selectedNode);
+
+                            testDataSource.fetch(function () {
+                                var selectedTestItem = testDataSource.get(nodeItem.ID);
+                                testDataSource.remove(selectedTestItem);
+                                testDataSource.sync();
+                            });
+
+                            var deviceItem = deviceDataSource.get(nodeItem.DeviceID);
+                            deviceDataSource.remove(deviceItem);
+                            deviceDataSource.sync();
+
+                            treeview.dataSource.sync();
+
+                            console.log(treeview.dataSource.data()[0].Name);
+                            var inputs = document.getElementsByClassName("dev-textbox");
+                            for (var i = 0; i < inputs.length; i++) {
+                                inputs[i].value = "";
+                            }
+                            treeview.dataSource.read();
                         }
+
+                        if (nodeItem.FolderID !== null) {
+
+                            //TODO: do this only if remove works
+                            //treeview.remove(selectedNode);
+
+                            testDataSource.fetch(function () {
+                                var selectedTestItem = testDataSource.get(nodeItem.ID);
+                                testDataSource.remove(selectedTestItem);
+                                testDataSource.sync();
+                            });
+
+                            var folderItem = folderDataSource.get(nodeItem.FolderID);
+                            folderDataSource.remove(folderItem);
+                            folderDataSource.sync();
+
+                            treeview.dataSource.sync();
+                            treeview.dataSource.read();
+
+                            //TODO: Clear out folder display
+                        }
+
+                        //TODO: Bug with edit, disable cancle until edit is pressed
                     }
-
-                    if (nodeItem.FolderID !== null) {
-
-                        //TODO: do this only if remove works
-                        treeview.remove(selectedNode);
-
-                        testDataSource.fetch(function () {
-                            var selectedTestItem = testDataSource.get(nodeItem.ID);
-                            testDataSource.remove(selectedTestItem);
-                            testDataSource.sync();
-                        });
-
-                        var folderItem = deviceDataSource.get(nodeItem.FolderID);
-                        deviceDataSource.remove(folderItem);
-                        deviceDataSource.sync();
-
-                        treeview.dataSource.sync();
-
-                        //TODO: Clear out folder display
-                    }
-
-                    //TODO: Bug with edit, disable cancle until edit is pressed
 
                 }
 
@@ -171,30 +268,55 @@
                         var nameText = document.getElementById("dnametb").value;
                         selectedTestItem.set("Name", nameText);
                         testDataSource.sync();
+                        alert(nameText);
 
-                        //Update the device
-                        var deviceItem = deviceDataSource.get(nodeItem.DeviceID);
-                        deviceItem.set("Name", nameText);
-                        var descText = document.getElementById("desctb").value;
-                        deviceItem.set("Description", descText);
-                        deviceDataSource.sync();
+                        if (nodeItem.DeviceID !== null) {
 
-                        //Need to get device type ID and Connection ID's????
+                            //Update the device
+                            var deviceItem = deviceDataSource.get(nodeItem.DeviceID);
+                            deviceItem.set("Name", nameText);
+                            var descText = document.getElementById("desctb").value;
+                            deviceItem.set("Description", descText);
+                            var serialnum = document.getElementById("dserialtb").value;
+                            deviceItem.set("SerialNumber", serialnum);
+                            var firmRevision = document.getElementById("firmtb").value;
+                            deviceItem.set("FirmwareRevision", firmRevision);
+                            var partnum = document.getElementById("dpartnumtb").value;
+                            deviceItem.set("PartNumber", partnum);
+                            var fid = document.getElementById("dfidtb").value;
+                            deviceItem.set("FIDString", fid);
+                            var devType = document.getElementById("dtypetb").value;
+                            //alert(devType);
+                            deviceItem.set("DeviceTypeID", devType);
 
-                        //Refresh the treeview data source
-                        treeview.dataSource.sync();
+                            deviceDataSource.sync();
+                            treeview.text(selectedNode, nameText);
 
-                        //TODO: Refresh the treeview itself
 
+                        }
+                        else {
+                            //Update the folder
+                            var folderItem = folderDataSource.get(nodeItem.FolderID);
+                            alert(nodeItem.FolderID);
+                            var folderName = document.getElementById("dnametb").value;
+                            folderItem.set("Name", nameText);
+                            folderDataSource.sync();
+                            treeview.text(selectedNode, nameText);
+                        }
 
                     });
+                    //treeview.dataSource.read();
+
+                    //Refresh the treeview data source
                 }
 
             </script>
 
-            <button type="button" id="editbtn" onclick="editHand()">Edit</button>
-            <button type="button" id="cancelbtn" onclick="cancleHand()">Cancel</button>
-            <button type="button" id="applybtn" onclick="applyHand()">Apply</button>
+            <div id="wrapper">
+            <button class="k-button" type="button" id="editbtn" onclick="editHand()">Edit</button>
+            <button class="k-button" type="button" id="cancelbtn" onclick="cancleHand()">Cancel</button>
+            <button class="k-button" type="button" id="applybtn" onclick="applyHand()">Apply</button>
+            </div>
 
         </div>
 
@@ -226,12 +348,21 @@
             <label for="typetb" class="required">Type</label>
             <input type="text" id="typetb" class="conn-textbox" />
 
+            <div id="wrapperconn">
+            <button class="k-button" type="button" id="editbtnconn" onclick="editHandConn()">Edit</button>
+            <button class="k-button" type="button" id="cancelbtnconn" onclick="cancleHandConn()">Cancel</button>
+            <button class="k-button" type="button" id="applybtnconn" onclick="applyHandConn()">Apply</button>
+            </div>
+
         </div>
 
         <div>
-            //kendo UI listview goes here? 
+            <div id="grid"></div>
+            <div id="pager" class="k-pager-wrap"></div>
         </div>
     </div>
+
+
 
 
     <div id="treeview" style="float: left">
@@ -250,12 +381,42 @@
                         }
                     },
                     schema: {
-                        model: {
-                            hasChildren: "Children",
-                            children: nodeChildren
-                        }
+                        model: nodeModel,
+                        data: function (response) {
+
+                            /*var data = [
+                            {
+                                id: 1, Name: "Tea", items: [
+                                { id: 2, Name: "Earl Gray" },
+                                { id: 3, Name: "Oolong" }
+                                ]
+                            }
+                            ];*/
+                            //format for a hiearchical array
+
+
+                            var newData = new kendo.data.ObservableArray([]);
+
+                            for (var i = 0; i < response.d.results.length; i++) {
+
+
+                                newData.push(response.d.results[i]);
+                                var data = response.d.results[0];
+                                console.log(newData[i]);
+
+
+
+                            }
+
+                            return newData;
+
+
+                        },// {
+                        // hasChildren: "Children",
+                        // children: nodeChildren
+                        //  }
                     }
-                }
+                };
 
 
                 var nodeModel = {
@@ -285,7 +446,7 @@
                     children: nodeChildren
                 };
 
-             
+
 
                 var treeDataSource = new kendo.data.HierarchicalDataSource({
                     type: "odata",
@@ -341,22 +502,26 @@
                             }
                             ];*/
                             //format for a hiearchical array
-                            
+
 
                             var newData = new kendo.data.ObservableArray([]);
-                            
-                           for (var i = 0; i < response.d.results.length; i++) {
-                               
-                               newData.push(response.d.results[i]);
-                               var data = response.d.results[i];
-                               //console.log(data[0]);
+
+                            for (var i = 0; i < response.d.results.length; i++) {
+
+                                //newData.push(response.d.results[i]);
+                                if (response.d.results[i].ParentID == null) {
+                                    newData.push(response.d.results[i]);
+                                }
+                                //console.log(newData[i]);
+
 
                             }
-                           
+
                             return newData;
-                            
+
                         }
-                   },
+
+                    },
                     sync: function (e) {
                         console.log("SyncDone");
                     },
@@ -365,8 +530,8 @@
                         var type = e.type;
                         console.log("RequestEnd");
                         console.log(type);
-                        
-                },
+
+                    },
 
                     batch: false,
                     error: function (e) {
@@ -469,56 +634,149 @@
                     }
                 });
 
+                var folderModel =
+           {
+               id: "ID",
+               fields:
+               {
+                   ID: {
+                       type: "number"
+                   },
+                   Name: {
+                       type: "string"
+                   },
+                   hasChildren: function () {
+                       return false;
+                   }
+               }
+           };
 
-               
-                var deviceModel =
-              {
-                  id: "ID",
-                  fields:
-                  {
-                      ID: {
-                          type: "number"
-                      },
-                      Name: {
-                          type: "string"
-                      },
-                      DeviceTypeID:
-                      {
-                          type: "number"
-                      },
-                      ConnectionID:
-                    {
-                        type: "number"
+                folderDataSource = new kendo.data.DataSource({
+                    type: "odata",
+                    transport: {
+                        read: {
+                            url: "/Service/DeviceService.svc/Folders",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        create: {
+                            url: "/Service/DeviceService.svc/Folders",
+                            type: "POST",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        update: {
+                            url: function (data) {
+                                return "/Service/DeviceService.svc/Folders(" + data.ID + ")";
+                            },
+                            type: "PUT",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        },
+                        destroy: {
+                            url: function (data) {
+                                return "/Service/DeviceService.svc/Folders(" + data.ID + ")";
+                            },
+                            type: "DELETE",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        }
                     },
-                      Description:
-                          {
-                              type: "string"
-                          },
-                      SerialNumber:
-                          {
-                              type: "string"
-                          },
-                      FirmwareRevision:
-                          {
-                              type: "string"
-                          },
-                      PartNumber:
-                          {
-                              type: "string"
-                          },
-                      FIDString:
-                          {
-                              type: "string"
-                          }
 
-                  },
-                  hasChildren: function () {
-                      return false;
-                  },
-              };
+                    schema: {
+                        model: deviceModel
+                    },
+                    error: function (e) {
+                        //console.log(e.status); // displays "error"
+                        //console.log(e.errors);
+                        console.log("Folder Datasource error");
+                        console.log(e.xhr.responseText);
+                    }
+                });
 
 
 
+                var deviceModel =
+                {
+                    id: "ID",
+                    fields:
+                    {
+                        ID: {
+                            type: "number"
+                        },
+                        Name: {
+                            type: "string"
+                        },
+                        DeviceTypeID:
+                        {
+                            type: "number"
+                        },
+                        ConnectionID:
+                        {
+                            type: "number"
+                        },
+                        Description:
+                        {
+                            type: "string"
+                        },
+                        SerialNumber:
+                        {
+                            type: "string"
+                        },
+                        FirmwareRevision:
+                        {
+                            type: "string"
+                        },
+                        PartNumber:
+                        {
+                            type: "string"
+                        },
+                        FIDString:
+                        {
+                            type: "string"
+                        }
+
+                    },
+                    hasChildren: function () {
+                        return false;
+                    },
+                };
+
+                var docDataSource = new kendo.data.DataSource({
+                    type: "odata",
+                    transport: {
+                        read: {
+                            url: "/Service/DeviceService.svc/Devices",
+                            datatype: "json",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        }
+                    },
+                    model: deviceModel,
+                    pageSize: 15
+                });
+
+                $("#grid").kendoGrid({
+                    dataSource: docDataSource,
+                    height: 430,
+                    filterable: true,
+                    sortable: true,
+                    pageable: true,
+                    columns: [{
+                        field: "Name"
+                    }
+                    ]
+                });
 
                 deviceDataSource = new kendo.data.DataSource({
                     type: "odata",
@@ -571,7 +829,7 @@
                     }
                 });
 
-              
+
 
                 $("#treeview").kendoTreeView({
                     dataSource: treeDataSource,
@@ -582,6 +840,9 @@
                 });
 
                 treeview = $("#treeview").data("kendoTreeView");
+
+
+
 
                 var deviceTypeModel =
                 {
@@ -596,140 +857,150 @@
                             type: "string"
                         },
                         CanHaveChildren:
-                    {
-                        type: "number"
+                        {
+                            type: "number"
+                        }
                     }
-                    }
-                    };
+                };
 
 
-               var deviceTypeDataSource =  new kendo.data.DataSource({
+                var deviceTypeDataSource = new kendo.data.DataSource({
                     type: "odata",
                     transport:
+                    {
+                        read:
                         {
-                            read:
-                                {
-                                    url: "/Service/DeviceService.svc/DeviceTypes",
-                                    headers: {
-                                        DataServiceVersion: "2.0",
-                                        MaxDataServiceVersion: "2.0"
-                                    }
-                                }
-                        },
-                    schema:
-                        {
-                            model: deviceTypeModel
+                            url: "/Service/DeviceService.svc/DeviceTypes",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
                         }
+                    },
+                    schema:
+                    {
+                        model: deviceTypeModel
+                    }
 
-               });
+                });
 
+                //get device type ready
+                $("#dtypetb").kendoDropDownList({
+                    dataTextField: "Name",
+                    dataValueField: "ID",
+                    optionLabel: " ",
+                    dataSource: deviceTypeDataSource
+                });
 
-               var connectionModel =
-              {
-                  id: "ID",
-                  fields:
-                  {
-                      ID: {
-                          type: "number"
-                      },
-                      ConnectionTypeID:
-                      {
-                          type: "number"
-                      },
-                      BaudRate:
-                  {
-                      type: "number"
-                  },
-                      DataBits:
-               {
-                   type: "number"
-               },
-                      StopBits:
-               {
-                   type: "number"
-               },
-                      RTSCTS:
-               {
-                   type: "number"
-               },
-                      DTR:
-               {
-                   type: "number"
-               },
-                      RTS:
-               {
-                   type: "number"
-               },
-                      XonXoff:
-               {
-                   type: "number"
-               }
-                  }
-              };
-
-               var connectionDataSource = new kendo.data.DataSource({
-                   type: "odata",
-                   transport:
-                       {
-                           read:
-                               {
-                                   url: "/Service/DeviceService.svc/Connections",
-                                   headers: {
-                                       DataServiceVersion: "2.0",
-                                       MaxDataServiceVersion: "2.0"
-                                   }
-                               }
-                       },
-                   schema:
-                       {
-                           model: connectionModel
-                       }
-
-               });
-
-               var connectionTypeModel =
-               {
-                   id: "ID",
-                   fields:
-                   {
-                       ID: {
-                           type: "number"
-                       },
-                       Name:
-                       {
-                           type: "string"
-                       },
-                   }
-               };
-
-               var connectionTypeDataSource = new kendo.data.DataSource({
-                   type: "odata",
-                   transport:
-                       {
-                           read:
-                               {
-                                   url: "/Service/DeviceService.svc/ConnectionTypes",
-                                   headers: {
-                                       DataServiceVersion: "2.0",
-                                       MaxDataServiceVersion: "2.0"
-                                   }
-                               }
-                       },
-                   schema:
-                       {
-                           model: connectionTypeModel
-                       }
-
-               });
-
-              
-             
+                dropdownlist = $("#dtypetb").data("kendoDropDownList");
 
 
-               function onSelect(e) {
+                var connectionModel =
+                {
+                    id: "ID",
+                    fields:
+                    {
+                        ID: {
+                            type: "number"
+                        },
+                        ConnectionTypeID:
+                        {
+                            type: "number"
+                        },
+                        BaudRate:
+                        {
+                            type: "number"
+                        },
+                        DataBits:
+                        {
+                            type: "number"
+                        },
+                        StopBits:
+                        {
+                            type: "number"
+                        },
+                        RTSCTS:
+                        {
+                            type: "number"
+                        },
+                        DTR:
+                        {
+                            type: "number"
+                        },
+                        RTS:
+                        {
+                            type: "number"
+                        },
+                        XonXoff:
+                        {
+                            type: "number"
+                        }
+                    }
+                };
 
-                   
-                   console.log(JSON.stringify(treeDataSource.data().toJSON()));
+                var connectionDataSource = new kendo.data.DataSource({
+                    type: "odata",
+                    transport:
+                    {
+                        read:
+                        {
+                            url: "/Service/DeviceService.svc/Connections",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        }
+                    },
+                    schema:
+                    {
+                        model: connectionModel
+                    }
+
+                });
+
+                var connectionTypeModel =
+                {
+                    id: "ID",
+                    fields:
+                    {
+                        ID: {
+                            type: "number"
+                        },
+                        Name:
+                        {
+                            type: "string"
+                        },
+                    }
+                };
+
+                var connectionTypeDataSource = new kendo.data.DataSource({
+                    type: "odata",
+                    transport:
+                    {
+                        read:
+                        {
+                            url: "/Service/DeviceService.svc/ConnectionTypes",
+                            headers: {
+                                DataServiceVersion: "2.0",
+                                MaxDataServiceVersion: "2.0"
+                            }
+                        }
+                    },
+                    schema:
+                    {
+                        model: connectionTypeModel
+                    }
+
+                });
+
+
+
+
+
+                function onSelect(e) {
+
+
+                    console.log(JSON.stringify(treeDataSource.data().toJSON()));
                     var nodeItem = this.dataItem(e.node);
                     //console.log(nodeItem.DeviceID);
                     //TODO: kinda of terrible, need to make async functions later
@@ -738,13 +1009,14 @@
                     var connID;
                     var connTypeID;
                     OldValues = [];
+                    folderDataSource.fetch();
                     deviceDataSource.fetch(function () {
                         var dataItem = deviceDataSource.get(nodeItem.DeviceID);
 
                         if (nodeItem.FolderID == undefined) {
 
 
-                            
+
 
                             inputs = document.getElementsByClassName("dev-label");
                             for (var i = 0; i < inputs.length; i++) {
@@ -797,11 +1069,17 @@
                         }
                     });
 
+
+                    deviceTypeDataSource.read();
+
                     //get the name of the device type rather than the ID
                     deviceTypeDataSource.fetch(function () {
                         var typeItem = deviceTypeDataSource.get(typeID);
                         if (typeItem !== undefined) {
-                            document.getElementById("dtypetb").value = typeItem.get("Name");
+                            //document.getElementById("dtypetb").value = typeItem.get("Name");
+                            dropdownlist.select(function (dataItem) {
+                                return dataItem.Name === typeItem.get("Name");
+                            });
                         }
                     });
 
@@ -836,7 +1114,7 @@
 
                 }
 
-              
+
 
                 $("#tabstrip").kendoTabStrip({
                     animation: {
@@ -849,8 +1127,10 @@
 
             });
         </script>
+       
+
     </div>
 
-
+    
 </body>
 </html>
