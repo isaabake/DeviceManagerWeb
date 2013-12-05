@@ -35,7 +35,7 @@
 
         <div>
             <label for="dtypetb" class="dev-label">Device Type</label>
-            <input id="dtypetb" class="k-textbox" disabled />
+            <input id="dtypetb" class="k-textbox"/>
 
             <label for="dnametb" id="dnamelb" class="dev-label">Device Name</label>
             <input type="text" id="dnametb" class="k-textbox" style="background-color: lightgray" disabled required validationMessage="Please Enter Name"/>
@@ -62,7 +62,7 @@
                 <p class="delete-message">This item has children, are you sure you want to delete it and all its children?</p>
 
              <button class="delete-confirm k-button">Yes</button>
-             <a href="#" class="delete-cancel">No</a>
+             <button class="delete-cancel k-button">No</button>
             </script>
 
              <script id="add-confirmation" type="text/x-kendo-template">
@@ -104,7 +104,7 @@
                         inputs[i].value = OldValues[i];
                     }
                     //TODO: reset old value for dropdown
-                    dropdownlist.enable(false);
+                    //dropdownlist.enable(false);
                 }
 
                 function addhand(e) {
@@ -202,6 +202,82 @@
                         else {
                             //alert("Folder!");
                             //add folder
+                            function sortNumber(a, b) {
+                                return a - b;
+                            }
+
+                            var ids = [];
+                            var newID;
+                            folderDataSource.read();
+                            folderDataSource.fetch(function () {
+                                console.log("Folder DATA");
+                                var folders = folderDataSource.data();
+                                console.log(folders[0].Name);
+                                for (var i = 0; i < folders.length; i++) {
+                                    ids.push(parseInt(folders[i].ID));
+                                }
+
+                                ids = ids.sort(sortNumber);
+                                newID = ids[ids.length - 1] + 1;
+                                //window.alert(ids[10]);
+                                //console.log(ids[10]);
+                            });
+
+                            var test = { ID: newID, Name: "Test" };
+
+                            OData.request({
+                                requestUri: "/Service/DeviceService.svc/Folders",
+                                method: "POST",
+                                data: test
+                            },
+                                function (data) {
+
+                                }
+                            );
+
+                            folderDataSource.read();
+
+                            var nodeIds = [];
+                            var newNodeID;
+                            testDataSource.read();
+
+                            testDataSource.fetch(function () {
+                                var nodes = testDataSource.data();
+                                for (var i = 0; i < nodes.length; i++) {
+                                    nodeIds.push(parseInt(nodes[i].ID));
+                                }
+                            });
+
+                            //alert("Heeeyyyy");
+
+                            nodeIds = nodeIds.sort(sortNumber);
+                            //alert("Length");
+                            //alert(nodeIds.length);
+                            newNodeID = nodeIds[nodeIds.length - 1] + 1;
+
+                            var selectedNode = treeview.select();
+                            var nodeItem = treeview.dataItem(selectedNode);
+                            var parentID;
+                            if (nodeItem == null) {
+                                parentID = null;
+                            }
+                            else {
+                                parentID = nodeItem.ID;
+                            }
+
+                            //alert(parentID);
+                            var testnode = { ID: newNodeID, Name: "Test", ParentID: parentID, DeviceID:null , FolderID: newID };
+                            OData.request({
+                                requestUri: "/Service/DeviceService.svc/Nodes",
+                                method: "POST",
+                                data: testnode
+                            },
+                                 function (data) {
+                                     alert("Successfully added Folder!");
+                                 }
+                            );
+                            testDataSource.read();
+                            treeview.dataSource.read();
                         }
                         kendoWindow.data("kendoWindow").close();
 
@@ -380,6 +456,80 @@
             <label for="xonofftb" class="required">XonXoff</label>
             <input type="text" id="xonofftb" class="k-textbox" />
 
+
+            <script>
+
+                var OldValuesconn = new Array();
+
+                //TODO: need to save old values if cancle is called
+                function editHandConn(e) {
+                    //TODO: will need to call the connection ones something different
+                    var inputs = document.getElementsByClassName("k-textbox");
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].disabled = false;
+                        inputs[i].style.backgroundColor = "white";
+
+                    }
+                    dropdownlist.enable(true);
+
+                }
+
+                function cancleHandConn(e) {
+                    var inputs = document.getElementsByClassName("k-textbox");
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].disabled = true;
+                        inputs[i].style.backgroundColor = "lightgray";
+                        inputs[i].value = OldValuesconn[i];
+                    }
+                    //TODO: reset old value for dropdown
+                    //dropdownlist.enable(false);
+                }
+
+                function applyHandConn(e) {
+                    var selectedNode = treeview.select();
+                    var nodeItem = treeview.dataItem(selectedNode);
+
+                    testDataSource.fetch(function () {
+
+                        //Update the Node
+                        var selectedTestItem = testDataSource.get(nodeItem.ID);
+
+                        //alert(nameText);
+
+
+
+                        var nameText = document.getElementById("dnametb").value;
+                        selectedTestItem.set("Name", nameText);
+                        testDataSource.sync();
+
+                        //Update the device
+                        var deviceItem = deviceDataSource.get(nodeItem.DeviceID);
+                        deviceItem.set("Name", nameText);
+                        var descText = document.getElementById("desctb").value;
+                        deviceItem.set("Description", descText);
+                        var serialnum = document.getElementById("dserialtb").value;
+                        deviceItem.set("SerialNumber", serialnum);
+                        var firmRevision = document.getElementById("firmtb").value;
+                        deviceItem.set("FirmwareRevision", firmRevision);
+                        var partnum = document.getElementById("dpartnumtb").value;
+                        deviceItem.set("PartNumber", partnum);
+                        var fid = document.getElementById("dfidtb").value;
+                        deviceItem.set("FIDString", fid);
+                        var devType = document.getElementById("dtypetb").value;
+                        //alert(devType);
+                        deviceItem.set("DeviceTypeID", devType);
+
+                        deviceDataSource.sync();
+                        treeview.text(selectedNode, nameText);
+
+
+
+                    }
+                    )
+                }
+
+            </script>
+
             
 
             <div id="wrapperconn">
@@ -415,7 +565,10 @@
         </div>
 
         <div>
-            //doc list view
+             <div>
+            <div id="fgrid"></div>
+            <div id="fpager" class="k-pager-wrap"></div>
+        </div>
         </div>
 
         </div>
@@ -785,7 +938,7 @@
                     type: "odata",
                     transport: {
                         read: {
-                            url: "/Service/DeviceService.svc/Devices",
+                            url: "/Service/DeviceService.svc/Documents",
                             datatype: "json",
                             headers: {
                                 DataServiceVersion: "2.0",
@@ -798,6 +951,18 @@
                 });
 
                 $("#grid").kendoGrid({
+                    dataSource: docDataSource,
+                    height: 430,
+                    filterable: true,
+                    sortable: true,
+                    pageable: true,
+                    columns: [{
+                        field: "Name"
+                    }
+                    ]
+                });
+
+                $("#fgrid").kendoGrid({
                     dataSource: docDataSource,
                     height: 430,
                     filterable: true,
@@ -1064,6 +1229,7 @@
                     var connID;
                     var connTypeID;
                     OldValues = [];
+                    OldValuesconn = [];
                     folderDataSource.fetch();
                     deviceDataSource.fetch(function () {
                         var dataItem = deviceDataSource.get(nodeItem.DeviceID);
@@ -1091,6 +1257,10 @@
                                 inputs[i].disabled = true;
                                 inputs[i].style.backgroundColor = "lightgray";
                                 OldValues[i] = inputs[i].value;
+                                OldValuesconn[i] = inputs[i].value;
+
+
+
 
                             }
                         }
