@@ -16,7 +16,7 @@
 
 <body>
     <div id="btnmenu" class="btnmen" style="float: left">
-        <button class="k-button" type="button" id="adddevbtn" onclick="addhand()">Add Device</button>
+        <button class="k-button" type="button" id="adddevbtn" onclick="addhand()">Add</button>
         <button class="k-button" type="button" id="deldevbtn" onclick="deletehand()">Delete</button>
 
     </div>
@@ -33,7 +33,7 @@
             </li>
         </ul>
 
-        <div>
+        <div id="dinputs">
             <label for="dtypetb" class="dev-label">Device Type</label>
             <input id="dtypetb" class="k-textbox"/>
 
@@ -41,7 +41,7 @@
             <input type="text" id="dnametb" class="k-textbox" style="background-color: lightgray" disabled required validationMessage="Please Enter Name"/>
 
             <label for="dserialtb" class="dev-label">Serial Number</label>
-            <input type="text" id="dserialtb" class="k-textbox" style="background-color: lightgray" disabled />
+            <input type="text" id="dserialtb" class="k-textbox" pattern="[0-9]{8}" style="background-color: lightgray" disabled validationMessage="Can be only 8 characters!"  />
 
             <label for="dgidtb" class="dev-label">Global Device ID</label>
             <input type="text" id="dgidtb" class="k-textbox" style="background-color: lightgray" disabled />
@@ -80,6 +80,9 @@
                 var folderDataSource;
                 var testDataSource;
                 var dropdownlist;
+                var conndropdownlist;
+                var connectionDataSource;
+                var validator;
 
                 var OldValues = new Array();
 
@@ -135,6 +138,7 @@
                                 console.log(devices[0].Name);
                                 for (var i = 0; i < devices.length; i++) {
                                     ids.push(parseInt(devices[i].ID));
+                                    console.log(devices[i].ID);
                                 }
 
                                 ids = ids.sort(sortNumber);
@@ -148,10 +152,10 @@
                             OData.request({
                                 requestUri: "/Service/DeviceService.svc/Devices",
                                 method: "POST",
-                                data: test},
-                                function (data)
-                                {
-                                    
+                                data: test
+                            },
+                                function (data) {
+
                                 }
                             );
 
@@ -160,11 +164,12 @@
                             var nodeIds = [];
                             var newNodeID;
                             testDataSource.read();
-                          
+
                             testDataSource.fetch(function () {
                                 var nodes = testDataSource.data();
                                 for (var i = 0; i < nodes.length; i++) {
                                     nodeIds.push(parseInt(nodes[i].ID));
+                                    //alert(nodeIds[i]);
                                 }
                             });
 
@@ -172,8 +177,9 @@
 
                             nodeIds = nodeIds.sort(sortNumber);
                             //alert("Length");
-                            //alert(nodeIds.length);
+                            //-alert(nodeIds.length);
                             newNodeID = nodeIds[nodeIds.length - 1] + 1;
+                            alert(newNodeID);
 
                             var selectedNode = treeview.select();
                             var nodeItem = treeview.dataItem(selectedNode);
@@ -184,15 +190,15 @@
                             else {
                                 parentID = nodeItem.ID;
                             }
-                  
+
                             //alert(parentID);
                             var testnode = { ID: newNodeID, Name: "Test", ParentID: parentID, DeviceID: newID, FolderID: null };
                             OData.request({
                                 requestUri: "/Service/DeviceService.svc/Nodes",
                                 method: "POST",
-                                data: testnode},
-                                 function (data)
-                                 {
+                                data: testnode
+                            },
+                                 function (data) {
                                      alert("Successfully added Device!");
                                  }
                             );
@@ -266,7 +272,7 @@
                             }
 
                             //alert(parentID);
-                            var testnode = { ID: newNodeID, Name: "Test", ParentID: parentID, DeviceID:null , FolderID: newID };
+                            var testnode = { ID: newNodeID, Name: "Test", ParentID: parentID, DeviceID: null, FolderID: newID };
                             OData.request({
                                 requestUri: "/Service/DeviceService.svc/Nodes",
                                 method: "POST",
@@ -364,11 +370,18 @@
                     var selectedNode = treeview.select();
                     var nodeItem = treeview.dataItem(selectedNode);
 
+                    if (validator.validate()) {
+                        alert("Hooray");
+                    }
+                    else {
+                        alert("Oops!");
+                    }
+
                     testDataSource.fetch(function () {
 
                         //Update the Node
                         var selectedTestItem = testDataSource.get(nodeItem.ID);
-                       
+
                         //alert(nameText);
 
                         if (nodeItem.DeviceID !== null) {
@@ -432,28 +445,28 @@
 
         <div>
 
-            <label for="typetb" class="required">Type</label>
+            <label id="typetbl" for="typetb" class="required">Type</label>
             <input id="typetb" class="k-textbox" />
 
-            <label for="baudratetb" class="required">Baud Rate</label>
+            <label id="baudratetbl" for="baudratetb" class="required">Baud Rate</label>
             <input type="text" id="baudratetb" class="k-textbox" />
 
-            <label for="databitstb" class="required">Data Bitsr</label>
+            <label id="databitstbl" for="databitstb" class="required">Data Bitsr</label>
             <input type="text" id="databitstb" name="name" class="k-textbox" />
 
-            <label for="stopbitstb" class="required">Stop Bits</label>
+            <label id="stopbitstbl" for="stopbitstb" class="required">Stop Bits</label>
             <input type="text" id="stopbitstb" class="k-textbox" />
 
-            <label for="rtsctstb" class="required">RTSCTS</label>
+            <label id="rtsctstbl" for="rtsctstb" class="required">RTSCTS</label>
             <input type="text" id="rtsctstb" class="k-textbox" />
 
-            <label for="dtrtb" class="required">DTR</label>
+            <label id="dtrtbl" for="dtrtb" class="required">DTR</label>
             <input type="text" id="dtrtb" class="k-textbox" />
 
-            <label for="rtstb" class="required">RTS</label>
+            <label id="rtstbl" for="rtstb" class="required">RTS</label>
             <input type="text" id="rtstb" class="k-textbox" />
 
-            <label for="xonofftb" class="required">XonXoff</label>
+            <label id="xonofftbl" for="xonofftb" class="required">XonXoff</label>
             <input type="text" id="xonofftb" class="k-textbox" />
 
 
@@ -496,31 +509,16 @@
 
                         //alert(nameText);
 
-
-
-                        var nameText = document.getElementById("dnametb").value;
-                        selectedTestItem.set("Name", nameText);
-                        testDataSource.sync();
-
                         //Update the device
                         var deviceItem = deviceDataSource.get(nodeItem.DeviceID);
-                        deviceItem.set("Name", nameText);
-                        var descText = document.getElementById("desctb").value;
-                        deviceItem.set("Description", descText);
-                        var serialnum = document.getElementById("dserialtb").value;
-                        deviceItem.set("SerialNumber", serialnum);
-                        var firmRevision = document.getElementById("firmtb").value;
-                        deviceItem.set("FirmwareRevision", firmRevision);
-                        var partnum = document.getElementById("dpartnumtb").value;
-                        deviceItem.set("PartNumber", partnum);
-                        var fid = document.getElementById("dfidtb").value;
-                        deviceItem.set("FIDString", fid);
-                        var devType = document.getElementById("dtypetb").value;
-                        //alert(devType);
-                        deviceItem.set("DeviceTypeID", devType);
+                        var connItem = connectionDataSource.get(deviceItem.ConnectionID);
+                        //alert(connItem.ConnectionTypeID);
+                        //alert(document.getElementById("dtypetb").value);
+                        connType = document.getElementById("typetb").value;
+                        connItem.set("ConnectionTypeID", connType);
 
-                        deviceDataSource.sync();
-                        treeview.text(selectedNode, nameText);
+                        connectionDataSource.sync();
+                        //deviceDataSource.sync();
 
 
 
@@ -1038,7 +1036,7 @@
                 treeview = $("#treeview").data("kendoTreeView");
 
 
-
+                validator = $("#dinputs").kendoValidator().data("kendoValidator");
 
                 var deviceTypeModel =
                 {
@@ -1178,7 +1176,7 @@
                     }
                 };
 
-                var connectionDataSource = new kendo.data.DataSource({
+                connectionDataSource = new kendo.data.DataSource({
                     type: "odata",
                     transport:
                     {
@@ -1198,7 +1196,7 @@
 
                 });
 
-               
+
 
                 $("#tabstrip").kendoTabStrip({
                     animation: {
@@ -1268,7 +1266,7 @@
                             console.log("It's a folder");
                             $("#tabstrip").hide();
                             $("#ftabstrip").show();
-                        
+
 
                             document.getElementById("fnametb").value = nodeItem.get("Name");
                         }
@@ -1306,23 +1304,90 @@
 
                     });
 
+
+
+
+
+
                     //get the connection type name
                     connectionTypeDataSource.fetch(function () {
                         //console.log(connTypeID);
 
                         //TODO: connection breaking when select connection tab first
                         var connTypeItem = connectionTypeDataSource.get(connTypeID);
+                        //alert(connTypeItem.get("Name"));
+                        if (connTypeItem.get("Name") == "wireless") {
+
+                            document.getElementById("baudratetb").style.visibility = 'hidden';
+                            document.getElementById("databitstb").style.visibility = "hidden";
+                            document.getElementById("stopbitstb").style.visibility = "hidden";
+                            document.getElementById("rtsctstb").style.visibility = "hidden";
+                            document.getElementById("dtrtb").style.visibility = "hidden";
+                            document.getElementById("rtstb").style.visibility = "hidden";
+                            document.getElementById("xonofftb").style.visibility = "hidden";
+
+                            document.getElementById("baudratetbl").style.visibility = 'hidden';
+                            document.getElementById("databitstbl").style.visibility = "hidden";
+                            document.getElementById("stopbitstbl").style.visibility = "hidden";
+                            document.getElementById("rtsctstbl").style.visibility = "hidden";
+                            document.getElementById("dtrtbl").style.visibility = "hidden";
+                            document.getElementById("rtstbl").style.visibility = "hidden";
+                            document.getElementById("xonofftbl").style.visibility = "hidden";
+
+
+                        }
+                        if (connTypeItem.get("Name") == "ethernet") {
+                            document.getElementById("baudratetb").style.visibility = 'hidden';
+                            document.getElementById("databitstb").style.visibility = "hidden";
+                            document.getElementById("stopbitstb").style.visibility = "hidden";
+                            document.getElementById("rtsctstb").style.visibility = "hidden";
+                            document.getElementById("dtrtb").style.visibility = "hidden";
+                            document.getElementById("rtstb").style.visibility = "hidden";
+                            document.getElementById("xonofftb").style.visibility = "hidden";
+
+                            document.getElementById("baudratetbl").style.visibility = 'hidden';
+                            document.getElementById("databitstbl").style.visibility = "hidden";
+                            document.getElementById("stopbitstbl").style.visibility = "hidden";
+                            document.getElementById("rtsctstbl").style.visibility = "hidden";
+                            document.getElementById("dtrtbl").style.visibility = "hidden";
+                            document.getElementById("rtstbl").style.visibility = "hidden";
+                            document.getElementById("xonofftbl").style.visibility = "hidden";
+                        }
+                        if (connTypeItem.get("Name") == "coaxial") {
+                            document.getElementById("baudratetb").style.visibility = "visible";
+                            document.getElementById("databitstb").style.visibility = "visible";
+                            document.getElementById("stopbitstb").style.visibility = "visible";
+                            document.getElementById("rtsctstb").style.visibility = "visible";
+                            document.getElementById("dtrtb").style.visibility = "visible";
+                            document.getElementById("rtstb").style.visibility = "visible";
+                            document.getElementById("xonofftb").style.visibility = "visible";
+
+                            document.getElementById("baudratetbl").style.visibility = 'visible';
+                            document.getElementById("databitstbl").style.visibility = "visible";
+                            document.getElementById("stopbitstbl").style.visibility = "visible";
+                            document.getElementById("rtsctstbl").style.visibility = "visible";
+                            document.getElementById("dtrtbl").style.visibility = "visible";
+                            document.getElementById("rtstbl").style.visibility = "visible";
+                            document.getElementById("xonofftbl").style.visibility = "visible";
+                        }
                         if (connTypeItem !== undefined) {
-                            document.getElementById("typetb").value = connTypeItem.get("Name");
+                            //document.getElementById("typetb").value = connTypeItem.get("Name");
+                            conndropdownlist.select(function (dataItem) {
+                                return dataItem.Name === connTypeItem.get("Name");
+                            });
                         }
                     });
+
+
+
+
 
 
                 }
 
 
 
-                
+
 
 
 
